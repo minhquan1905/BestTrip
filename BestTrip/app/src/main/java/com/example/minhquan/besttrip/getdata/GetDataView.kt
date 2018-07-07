@@ -22,7 +22,7 @@ class GetDataView : AppCompatActivity(),GetDataViewItf {
     }
 
     override fun showDataChild(datachild: String){
-        txtdemo.text = datachild + "\n" + txtdemo.text
+        //txtdemo.text = datachild + "\n" + txtdemo.text
         Log.d("Show DataChild",datachild)
     }
 }

@@ -19,7 +19,7 @@ import android.R.attr.password
 
 
 
-class LoginPresenter(val viewlogin: LoginView) : AppCompatActivity() {
+class LoginPresenter(var viewlogin: LoginView) : AppCompatActivity() {
 
     fun login(email: EditText, password: EditText) {
         var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
