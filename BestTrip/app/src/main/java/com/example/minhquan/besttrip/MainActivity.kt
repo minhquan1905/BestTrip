@@ -19,6 +19,7 @@ import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.math.absoluteValue
 import android.R.attr.password
+import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import com.example.minhquan.besttrip.datafirebase.*
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,7 +30,6 @@ import com.google.firebase.database.DataSnapshot
 
 
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
