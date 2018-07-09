@@ -8,10 +8,14 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.ViewPager
 import android.support.design.widget.TabLayout
+import android.widget.Toast
 import com.example.minhquan.besttrip.R
+import com.example.minhquan.besttrip.login.presenter.LoginPresenter
+import com.example.minhquan.besttrip.login.view.ViewItf
+import kotlinx.android.synthetic.main.sign_up_fragment.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),ViewItf {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,20 @@ class MainActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
 
 
-        //Blurry.with(this@MainActivity).radius(25).sampling(1).onto(constraint)
+        //btnSignUp.setOnClickListener {Toast.makeText(this,"abc", Toast.LENGTH_LONG).show()}
 
+    }
+
+    override fun Show_Login_Success(){
+        Toast.makeText(this,"Login Success", Toast.LENGTH_LONG).show()
+    }
+    override fun Show_Login_Fail(){
+        Toast.makeText(this,"Login Fail", Toast.LENGTH_LONG).show()
+    }
+    override fun Show_Sigin_Success(){
+        Toast.makeText(this,"Sign up Success", Toast.LENGTH_LONG).show()
+    }
+    override fun Show_Sigin_Fail(){
+        Toast.makeText(this,"Sign up Fail", Toast.LENGTH_LONG).show()
     }
 }

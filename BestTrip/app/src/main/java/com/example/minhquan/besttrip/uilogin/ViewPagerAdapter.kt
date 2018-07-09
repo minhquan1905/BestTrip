@@ -4,7 +4,12 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.view.ViewGroup
 import com.example.minhquan.besttrip.R
+import android.support.v4.view.ViewPager
+import android.view.LayoutInflater
+
+
 
 class ViewPagerAdapter(internal var context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
@@ -27,4 +32,6 @@ class ViewPagerAdapter(internal var context: Context, fm: FragmentManager) : Fra
             else -> return null
         }
     }
+
+
 }

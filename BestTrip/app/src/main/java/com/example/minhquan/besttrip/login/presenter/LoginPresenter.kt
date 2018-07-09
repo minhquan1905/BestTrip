@@ -13,13 +13,10 @@ import android.R.attr.password
 import android.support.v7.app.AppCompatActivity
 import android.R.attr.password
 import android.R.attr.password
+import com.example.minhquan.besttrip.uilogin.MainActivity
 
 
-
-
-
-
-class LoginPresenter(var viewlogin: LoginView) : AppCompatActivity() {
+class LoginPresenter(var viewlogin: MainActivity) : AppCompatActivity() {
 
     fun login(email: EditText, password: EditText) {
         var mAuth: FirebaseAuth = FirebaseAuth.getInstance()

@@ -13,8 +13,8 @@ class LoginView: AppCompatActivity(),ViewItf {
         setContentView(R.layout.activity_login)
 
         //chueyn cho presenter
-        btn_signup.setOnClickListener { v -> LoginPresenter(this).signup(edt_mail,edt_password) }
-        btn_login.setOnClickListener {  v -> LoginPresenter(this).login(edt_mail,edt_password)  }
+//        btn_signup.setOnClickListener { v -> LoginPresenter(this).signup(edt_mail,edt_password) }
+//        btn_login.setOnClickListener {  v -> LoginPresenter(this).login(edt_mail,edt_password)  }
     }
 
     override fun Show_Login_Success(){
