@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "373588025048",
+    "firebase_url": "https://besttrip-7c675.firebaseio.com",
+    "project_id": "besttrip-7c675",
+    "storage_bucket": "besttrip-7c675.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373588025048:android:4e7d391c7ee0e2d6",
+        "android_client_info": {
+          "package_name": "com.example.minhquan.besttrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373588025048-d7nt0ovu4l102agdqhloq955pf82f79i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minhquan.besttrip",
+            "certificate_hash": "f41e208d1173d42e0d7ceb65944c2684a2857088"
+          }
+        },
+        {
+          "client_id": "373588025048-qf58248qcgmupsoq1jlub9qio4b4ropv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpNkcRolN-ezxkNo9KsQ3i2-0n_txdGMA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373588025048-qf58248qcgmupsoq1jlub9qio4b4ropv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

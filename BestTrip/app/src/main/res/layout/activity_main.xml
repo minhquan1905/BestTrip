@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".uilogin.MainActivity">
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationView"
@@ -34,7 +34,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+            app:layout_constraintTop_toTopOf="parent">
+
+        </android.support.v7.widget.Toolbar>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -53,7 +55,7 @@
                 android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:text="BestTrip"
-                android:textColor="#335adb"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +71,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="Best trip with us"
-                android:textColor="#FF335ADB"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +85,7 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#E664dd17"
+            android:background="@color/colorPrimary"
             app:tabBackground="@drawable/tab_color_selector"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -93,20 +95,24 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="0.0"
             app:tabGravity="fill"
-            app:tabMode="fixed"></android.support.design.widget.TabLayout>
+            app:tabMode="fixed">
+
+        </android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_below="@id/tabLayout"
-            android:background="#F21faa00"
+            android:background="@color/yellow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-            app:layout_constraintVertical_bias="1.0"></android.support.v4.view.ViewPager>
+            app:layout_constraintVertical_bias="1.0">
+
+        </android.support.v4.view.ViewPager>
 
     </android.support.constraint.ConstraintLayout>
 
