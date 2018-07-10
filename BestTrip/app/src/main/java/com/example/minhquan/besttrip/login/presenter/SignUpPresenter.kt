@@ -3,22 +3,22 @@ package com.example.minhquan.besttrip.login.presenter
 import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
 import android.support.v7.app.AppCompatActivity
-import com.example.minhquan.besttrip.login.view.Login
+import com.example.minhquan.besttrip.login.view.SignUp
 
 
-class LoginPresenter(var viewlogin: Login) : AppCompatActivity() {
+class SignUpPresenter(var viewlogin: SignUp) : AppCompatActivity() {
 
-    fun login(email: EditText, password: EditText) {
+
+    fun signup(email: EditText, password: EditText) {
         var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-        mAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
+        mAuth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                       viewlogin.showLoginSuccess()
+                        viewlogin.showSignUpSuccess()
                     } else {
-                       viewlogin.showLoginFail()
+                        viewlogin.showSignUpFail()
                     }
                 }
     }
-
 
 }

@@ -6,9 +6,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.view.ViewGroup
 import com.example.minhquan.besttrip.R
-import android.support.v4.view.ViewPager
-import android.view.LayoutInflater
-
+import com.example.minhquan.besttrip.login.view.Login
+import com.example.minhquan.besttrip.login.view.SignUp
 
 
 class ViewPagerAdapter(internal var context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -33,5 +32,8 @@ class ViewPagerAdapter(internal var context: Context, fm: FragmentManager) : Fra
         }
     }
 
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        return super.instantiateItem(container, position)
+    }
 
 }

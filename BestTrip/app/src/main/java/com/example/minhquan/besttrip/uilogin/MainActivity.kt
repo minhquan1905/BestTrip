@@ -15,7 +15,7 @@ import com.example.minhquan.besttrip.login.view.ViewItf
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 
 
-class MainActivity : AppCompatActivity(),ViewItf {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,20 +59,9 @@ class MainActivity : AppCompatActivity(),ViewItf {
         tabLayout.setupWithViewPager(viewPager)
 
 
-        //btnSignUp.setOnClickListener {Toast.makeText(this,"abc", Toast.LENGTH_LONG).show()}
+
 
     }
 
-    override fun Show_Login_Success(){
-        Toast.makeText(this,"Login Success", Toast.LENGTH_LONG).show()
-    }
-    override fun Show_Login_Fail(){
-        Toast.makeText(this,"Login Fail", Toast.LENGTH_LONG).show()
-    }
-    override fun Show_Sigin_Success(){
-        Toast.makeText(this,"Sign up Success", Toast.LENGTH_LONG).show()
-    }
-    override fun Show_Sigin_Fail(){
-        Toast.makeText(this,"Sign up Fail", Toast.LENGTH_LONG).show()
-    }
+
 }

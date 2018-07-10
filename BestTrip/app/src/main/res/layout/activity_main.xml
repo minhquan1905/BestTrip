@@ -85,7 +85,7 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/tab_background_selected"
             app:tabBackground="@drawable/tab_color_selector"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
             app:layout_constraintBottom_toBottomOf="parent"
