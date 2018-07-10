@@ -79,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="spread" />
 
-            <android.support.v7.view
+            <View
                 android:id="@+id/divider"
                 android:layout_width="0dp"
                 style="@style/Divider"
