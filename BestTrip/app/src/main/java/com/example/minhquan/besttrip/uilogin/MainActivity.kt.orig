@@ -23,7 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+<<<<<<< HEAD
         //startActivity(Intent(this, RouteActivity::class.java))
+=======
+        startActivity(Intent(this, RouteActivity::class.java))
+>>>>>>> Ambert
 
         setSupportActionBar(toolBar)
         supportActionBar?.title = ""
