@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ProgressBar
-        android:id="@+id/loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,7 +16,7 @@
         android:paddingEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintVertical_bias="1">
 
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -68,7 +59,7 @@
                 android:id="@+id/img_destination"
                 android:src="@drawable/ic_origin_filled"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="36dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline_left"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,12 +79,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="spread" />
 
-            <View
+            <android.support.v7.view
                 android:id="@+id/divider"
                 android:layout_width="0dp"
                 style="@style/Divider"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toTopOf="@id/edit_destination"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
@@ -106,7 +97,7 @@
                 android:hint="@string/edit_destination"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="36dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -118,8 +109,6 @@
                 style="@style/RoundedButton"
                 android:layout_width="150dp"
                 android:layout_height="30dp"
-                android:text="@string/btn_cancel"
-                android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btnFind"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -127,18 +116,75 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.9"/>
 
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_back"
+                android:translationZ="2dp"
+                app:layout_constraintBottom_toBottomOf="@id/btnCancel"
+                app:layout_constraintEnd_toStartOf="@id/label_cancel"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/btnCancel"
+                app:layout_constraintTop_toTopOf="@id/btnCancel"
+                tools:targetApi="lollipop"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:id="@+id/label_cancel"
+                android:text="@string/btn_cancel"
+                android:textColor="@android:color/white"
+                android:translationZ="2dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@id/btnCancel"
+                app:layout_constraintEnd_toEndOf="@id/btnCancel"
+                app:layout_constraintStart_toEndOf="@id/img_cancel"
+                app:layout_constraintTop_toTopOf="@id/btnCancel"
+                app:layout_constraintHorizontal_bias="0.0"
+                tools:targetApi="lollipop"/>
+
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnFind"
                 style="@style/RoundedButton"
                 android:layout_width="150dp"
                 android:layout_height="30dp"
-                android:text="@string/btn_find"
-                android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnCancel"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.9" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_find"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_car"
+                android:translationZ="2dp"
+                app:layout_constraintBottom_toBottomOf="@id/btnFind"
+                app:layout_constraintEnd_toStartOf="@id/label_find"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/btnFind"
+                app:layout_constraintTop_toTopOf="@id/btnFind"
+                tools:targetApi="lollipop" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:id="@+id/label_find"
+                android:text="@string/btn_find"
+                android:textColor="@android:color/white"
+                android:translationZ="2dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@id/btnFind"
+                app:layout_constraintEnd_toEndOf="@id/btnFind"
+                app:layout_constraintStart_toEndOf="@id/img_find"
+                app:layout_constraintTop_toTopOf="@id/btnFind"
+                app:layout_constraintHorizontal_bias="0.0"
+                tools:targetApi="lollipop"/>
+
 
         </android.support.constraint.ConstraintLayout>
 
@@ -153,12 +199,22 @@
         android:layout_height="match_parent"
         tools:context="com.example.minhquan.besttrip.route.RouteFragment"/>
 
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
-        android:src="@drawable/ic_origin_filled"
+        android:src="@drawable/ic_origin_filled_white"
         app:backgroundTint="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
@@ -168,8 +224,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.91"
-        app:layout_constraintVertical_bias="1"/>
+        app:layout_constraintVertical_bias="0.12"/>
 
 
 </android.support.constraint.ConstraintLayout>
+
+
 

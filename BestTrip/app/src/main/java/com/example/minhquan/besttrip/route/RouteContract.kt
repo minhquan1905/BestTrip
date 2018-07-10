@@ -14,7 +14,7 @@ interface RouteContract {
 
         fun setPresenter(presenter: RouteContract.Presenter)
 
-        fun onGetRouteSuccess(result: ResultRoute?)
+        fun onGetRouteSuccess(result: ResultRoute)
     }
 
     interface Presenter: BaseContract.Presenter<RouteContract.View> {
