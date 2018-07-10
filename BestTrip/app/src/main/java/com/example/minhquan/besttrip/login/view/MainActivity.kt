@@ -20,36 +20,36 @@ class MainActivity : AppCompatActivity() {
 
         //startActivity(Intent(this, RouteActivity::class.java))
 
-        setSupportActionBar(toolBar)
-        supportActionBar?.title = ""
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
-
-            }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-
-        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                toolBar,
-                R.string.open,
-                R.string.close
-        ){
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
-            }
-
-            override fun onDrawerClosed(drawerView: View) {
-                super.onDrawerClosed(drawerView)
-            }
-        }
-
-        drawerLayout.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
+//        setSupportActionBar(toolBar)
+//        supportActionBar?.title = ""
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//
+//        navigationView.setNavigationItemSelectedListener {
+//            when(it.itemId){
+//
+//            }
+//            drawerLayout.closeDrawer(GravityCompat.START)
+//            true
+//        }
+//
+//        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+//                this,
+//                drawerLayout,
+//                toolBar,
+//                R.string.open,
+//                R.string.close
+//        ){
+//            override fun onDrawerOpened(drawerView: View) {
+//                super.onDrawerOpened(drawerView)
+//            }
+//
+//            override fun onDrawerClosed(drawerView: View) {
+//                super.onDrawerClosed(drawerView)
+//            }
+//        }
+//
+//        drawerLayout.addDrawerListener(drawerToggle)
+//        drawerToggle.syncState()
 
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val adapter = ViewPagerAdapter(this, supportFragmentManager)
