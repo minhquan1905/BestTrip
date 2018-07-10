@@ -11,8 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
+import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.login_fragment.*
 
-class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, ViewItf {
+class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener {
 
     private val TAG = "JSAGoogleSignIn"
     val REQUEST_CODE_SIGN_IN = 1234
@@ -36,6 +36,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       // btnLogin.setOnClickListener {  LoginPresenter(this).login(edtEmailLogin,edtPasswordLogin) }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
