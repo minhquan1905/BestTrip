@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         startActivity(Intent(this, RouteActivity::class.java))
 
-
         setSupportActionBar(toolBar)
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

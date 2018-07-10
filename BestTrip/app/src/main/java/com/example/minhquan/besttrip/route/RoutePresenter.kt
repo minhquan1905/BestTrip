@@ -33,9 +33,9 @@ class RoutePresenter(private var view: RouteContract.View) : RouteContract.Prese
         disposable  = service.getRoute(org, des)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result: ResultRoute? ->
+                .subscribe({ result: ResultRoute ->
                     view.showProgress(false)
-                    view.onGetRouteSuccess(result!!)
+                    view.onGetRouteSuccess(result)
                 }, { error ->
                     view.showProgress(false)
                     view.showError(error.localizedMessage)

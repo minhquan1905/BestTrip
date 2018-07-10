@@ -1,6 +1,7 @@
 package com.example.minhquan.besttrip.route
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.activity_route.*
 
 class RouteActivity :
@@ -25,6 +27,7 @@ class RouteActivity :
         OnMapReadyCallback,
         RouteContract.View {
 
+    private val INITIAL_STROKE_WIDTH_PX = 5
 
     private lateinit var map: GoogleMap
     private lateinit var presenter: RouteContract.Presenter
@@ -85,26 +88,32 @@ class RouteActivity :
      * Function for handle response data when request's successful
      * @param result : Response data
      */
-    override fun onGetRouteSuccess(result: ResultRoute?) {
+    override fun onGetRouteSuccess(result: ResultRoute) {
 
         Log.d("Data Status","Return success!")
 
-        if (result?.status.toString() == "OK") {
+        if (result.status.toString() == "OK") {
+
+            val latFirst = result.routes!![0].bounds!!.northeast!!.lat
+            val lngFirst = result.routes[0].bounds!!.northeast!!.lng
+            val latSecond = result.routes[0].bounds!!.southwest!!.lat
+            val lngSecond = result.routes[0].bounds!!.southwest!!.lng
+
+            val routeBound = LatLngBounds(
+                    LatLng(latFirst!!, lngFirst!!),
+                    LatLng(latSecond!!, lngSecond!!))
 
             // Set the camera to the greatest possible zoom level that includes the bounds
-            val routeBound = LatLngBounds(
-                    LatLng(-44.0, 113.0),
-                    LatLng(-10.0, 154.0))
-            map.moveCamera(CameraUpdateFactory.newLatLngBounds(routeBound, 0))
+            map.moveCamera(CameraUpdateFactory.newLatLngBounds(routeBound, 10))
 
-            val latOrigin = result?.routes?.get(0)?.legs?.get(0)?.endLocation?.lat.toString()
-            val lngOrigin = result?.routes?.get(0)?.legs?.get(0)?.endLocation?.lng.toString()
-            val latDestination = result?.routes?.get(0)?.legs?.get(0)?.startLocation?.lat.toString()
-            val lngDestination = result?.routes?.get(0)?.legs?.get(0)?.startLocation?.lng.toString()
-
-            Log.d("Origin location return", "$latOrigin-$lngOrigin")
-            Log.d("Des location return", "$latDestination-$lngDestination")
-
+            result.routes[0].legs!![0].steps!!.forEach { it ->
+                map.addPolyline(PolylineOptions().apply {
+                    add( LatLng(it.startLocation!!.lat!!, it.startLocation.lng!!) )
+                    width(INITIAL_STROKE_WIDTH_PX.toFloat())
+                    color(Color.BLUE)
+                    geodesic(true)
+                })
+            }
 
         }
         else
@@ -133,4 +142,6 @@ class RouteActivity :
                 presenter.startGetRoute(origin, destination)
         }
     }
+
+
 }
