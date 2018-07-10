@@ -77,6 +77,9 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = mAuth!!.currentUser
         updateUI(currentUser)
+        val intent = Intent(context, RouteActivity::class.java)
+        startActivity(intent)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
