@@ -1,5 +1,6 @@
 package com.example.minhquan.besttrip.login.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
@@ -12,6 +13,7 @@ import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.login.presenter.SignUpPresenter
 import com.example.minhquan.besttrip.login.view.ViewItf
+import com.example.minhquan.besttrip.route.RouteActivity
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 
@@ -25,7 +27,7 @@ class SignUp : Fragment(),ViewItf.SignUpItf {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnSignUp.setOnClickListener {  SignUpPresenter(this).signup(edtEmailSignUp,edtPassWordSignUp) }
+        btnSignUp.setOnClickListener {  SignUpPresenter(this).signUp(edtEmailSignUp,edtPassWordSignUp) }
 
         // check null when sign up
         btnSignUp.setOnClickListener {
@@ -47,13 +49,15 @@ class SignUp : Fragment(),ViewItf.SignUpItf {
                 check = false
             }
             if(check)
-                SignUpPresenter(this).signup(edtEmailSignUp,edtPassWordSignUp)
+                SignUpPresenter(this).signUp(edtEmailSignUp,edtPassWordSignUp)
         }
 
     }
 
     override fun showSignUpSuccess() {
         Toast.makeText(activity,"Sign up Success", Toast.LENGTH_LONG).show()
+        val intent = Intent(context, RouteActivity::class.java)
+        startActivity(intent)
     }
 
     override fun showSignUpFail() {

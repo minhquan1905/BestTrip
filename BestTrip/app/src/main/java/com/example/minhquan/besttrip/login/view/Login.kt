@@ -12,17 +12,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
-import com.example.minhquan.besttrip.signingoogle.Presenter
+import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
+import com.example.minhquan.besttrip.route.RouteActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_demo.*
 import kotlinx.android.synthetic.main.login_fragment.*
 
-class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, com.example.minhquan.besttrip.signingoogle.ViewItf {
+class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, ViewItf {
 
     private val TAG = "JSAGoogleSignIn"
     val REQUEST_CODE_SIGN_IN = 1234
@@ -87,7 +87,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
             if (result.isSuccess) {
                 // successful -> authenticate with Firebase
                 val account = result.signInAccount
-                Presenter(this).firebaseAuthWithGoogle(account,mAuth)
+                LoginGooglePresenter(this).fireBaseAuthWithGoogle(account,mAuth)
             } else {
                 // failed -> update UI
                 updateUI(null)
@@ -120,6 +120,8 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
     override fun showLoginSuccess() {
         Toast.makeText(activity,"Login Success", Toast.LENGTH_LONG).show()
+        val intent = Intent(context, RouteActivity::class.java)
+        startActivity(intent)
     }
 
     override fun showLoginFail() {

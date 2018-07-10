@@ -9,7 +9,7 @@ import com.example.minhquan.besttrip.login.view.SignUp
 class SignUpPresenter(var viewlogin: SignUp) : AppCompatActivity() {
 
 
-    fun signup(email: EditText, password: EditText) {
+    fun signUp(email: EditText, password: EditText) {
         var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
         mAuth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
                 .addOnCompleteListener(this) { task ->

@@ -1,5 +1,7 @@
 package com.example.minhquan.besttrip.login.view
 
+import com.google.firebase.auth.FirebaseUser
+
 interface ViewItf {
     interface SignUpItf{
         fun showSignUpSuccess()
@@ -8,6 +10,7 @@ interface ViewItf {
     interface LoginItf{
         fun showLoginSuccess()
         fun showLoginFail()
+        fun updateUI(user: FirebaseUser?)
     }
 
 }

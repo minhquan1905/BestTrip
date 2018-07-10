@@ -1,4 +1,4 @@
-package com.example.minhquan.besttrip.uilogin
+package com.example.minhquan.besttrip.adapter
 
 import android.content.Context
 import android.support.v4.app.Fragment

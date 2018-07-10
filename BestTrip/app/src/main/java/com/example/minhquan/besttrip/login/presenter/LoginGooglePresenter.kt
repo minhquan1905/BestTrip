@@ -1,4 +1,4 @@
-package com.example.minhquan.besttrip.signingoogle
+package com.example.minhquan.besttrip.login.presenter
 
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -8,10 +8,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-class Presenter(val view: Login) : AppCompatActivity() {
+class LoginGooglePresenter(val view: Login) : AppCompatActivity() {
 
 
-    fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?, mAuth: FirebaseAuth?) {
+    fun fireBaseAuthWithGoogle(acct: GoogleSignInAccount?, mAuth: FirebaseAuth?) {
         //Log.e(TAG, "firebaseAuthWithGoogle():" + acct.id!!)
         val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
         mAuth?.signInWithCredential(credential)?.

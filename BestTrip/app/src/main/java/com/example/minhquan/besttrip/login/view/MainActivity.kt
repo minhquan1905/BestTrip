@@ -1,4 +1,4 @@
-package com.example.minhquan.besttrip.uilogin
+package com.example.minhquan.besttrip.login.view
 
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
@@ -8,13 +8,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.ViewPager
 import android.support.design.widget.TabLayout
-import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.login.presenter.LoginPresenter
-import com.example.minhquan.besttrip.login.view.ViewItf
-import kotlinx.android.synthetic.main.sign_up_fragment.*
-import android.content.Intent
-import com.example.minhquan.besttrip.route.RouteActivity
+import com.example.minhquan.besttrip.adapter.ViewPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {
