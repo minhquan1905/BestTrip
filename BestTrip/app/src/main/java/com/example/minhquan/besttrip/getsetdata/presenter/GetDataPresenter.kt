@@ -13,7 +13,7 @@ class GetDataPresenter(val view : Home) {
 
                 val ob = getClientX(dtSnap)
 
-                    Log.e("xxxxx",dtSnap.toString())
+                    Log.e("xxxxxy",dtSnap.toString())
                     Log.e("xxxxxxxxxxx2",ob.arrayUser[0].email)
 
                     view.showDataChild(ob)
