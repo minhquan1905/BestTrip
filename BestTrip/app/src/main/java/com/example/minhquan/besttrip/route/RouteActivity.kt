@@ -99,6 +99,7 @@ class RouteActivity :
             val latSecond = result.routes[0].bounds!!.southwest!!.lat
             val lngSecond = result.routes[0].bounds!!.southwest!!.lng
 
+            Log.d("Bound", latFirst.toString()+"-"+lngFirst.toString() + " and " +latFirst.toString()+"-"+lngFirst.toString())
             val routeBound = LatLngBounds(
                     LatLng(latFirst!!, lngFirst!!),
                     LatLng(latSecond!!, lngSecond!!))
