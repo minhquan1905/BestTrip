@@ -4,13 +4,12 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.view.ViewGroup
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.login.view.Login
 import com.example.minhquan.besttrip.login.view.SignUp
 
 
-class ViewPagerAdapter(internal var context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class ViewPagerAdapter(private var context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return if (position == 0) {
@@ -25,15 +24,15 @@ class ViewPagerAdapter(internal var context: Context, fm: FragmentManager) : Fra
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        when (position) {
-            0 -> return context.getString(R.string.login)
-            1 -> return context.getString(R.string.signup)
-            else -> return null
+        return when (position) {
+            0 -> context.getString(R.string.login)
+            1 -> context.getString(R.string.signup)
+            else -> null
         }
     }
 
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return super.instantiateItem(container, position)
-    }
+//    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+//        return super.instantiateItem(container, position)
+//    }
 
 }
