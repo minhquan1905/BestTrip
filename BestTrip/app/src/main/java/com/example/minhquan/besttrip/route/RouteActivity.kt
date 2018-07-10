@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_route.*
 
 class RouteActivity :
@@ -40,6 +43,38 @@ class RouteActivity :
         val mapFragment : SupportMapFragment? =
                 supportFragmentManager.findFragmentById(R.id.mapView) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
+
+        setSupportActionBar(toolBar)
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navigationView.setNavigationItemSelectedListener {
+            when(it.itemId){
+
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
+        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolBar,
+                R.string.open,
+                R.string.close
+        ){
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+            }
+        }
+
+        drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
