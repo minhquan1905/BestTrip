@@ -36,7 +36,6 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // btnLogin.setOnClickListener {  LoginPresenter(this).login(edtEmailLogin,edtPasswordLogin) }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
