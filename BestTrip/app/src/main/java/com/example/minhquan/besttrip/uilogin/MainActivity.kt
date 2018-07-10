@@ -13,6 +13,8 @@ import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.login.view.ViewItf
 import kotlinx.android.synthetic.main.sign_up_fragment.*
+import android.content.Intent
+import com.example.minhquan.besttrip.route.RouteActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +22,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        startActivity(Intent(this, RouteActivity::class.java))
+
 
         setSupportActionBar(toolBar)
         supportActionBar?.title = ""

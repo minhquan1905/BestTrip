@@ -4,4 +4,13 @@
     <string name="close">Close</string>
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
+
+    <!--Input Location-->
+    <string name="edit_origin">Origin Location</string>
+    <string name="edit_destination">Destination Location</string>
+
+    <!--Button for RouteFragment-->
+    <string name="btn_cancel">CANCEL</string>
+    <string name="btn_find">FIND</string>
+
 </resources>

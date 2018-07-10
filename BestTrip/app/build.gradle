@@ -11,6 +11,7 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "API_KEY", '"AIzaSyA0s2e-r1rt1xyh7RGdLd4VbWJY55uWgaE"'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -36,8 +37,25 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.0'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.2'
-    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    //OkHttp3
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    //Design
     implementation 'com.android.support:design:27.1.1'
+    //Map
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-places:15.0.1'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    //Material dialog
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
 
 }
 repositories {
