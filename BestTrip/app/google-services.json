@@ -23,6 +23,38 @@
           }
         },
         {
+          "client_id": "373588025048-4e3qbth6bg3uagesq7s296oj85pv5gdq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minhquan.besttrip",
+            "certificate_hash": "6529378b1befef369a600e60ebd677b105dcda46"
+          }
+        },
+        {
+          "client_id": "373588025048-s10e344m3n7somkvqln5f1j3vmf4o5so.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minhquan.besttrip",
+            "certificate_hash": "8f17b52ae13927418df012625120ff397b1f4391"
+          }
+        },
+        {
+          "client_id": "373588025048-ve8gmf2gadsok11pic5u6t1ijr0tsiib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minhquan.besttrip",
+            "certificate_hash": "f4572f520b153cdde8451b29fda4fb4b61e68541"
+          }
+        },
+        {
+          "client_id": "373588025048-lbdhueac67v0na5a4mivl9npmfjcqdne.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minhquan.besttrip",
+            "certificate_hash": "44649cca121d978ca7220ad980d112b22cf2d70e"
+          }
+        },
+        {
           "client_id": "373588025048-qf58248qcgmupsoq1jlub9qio4b4ropv.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -129,27 +129,12 @@ class RouteActivity :
 
         if (result.status.toString() == "OK") {
 
-            val latFirst = result.routes!![0].bounds!!.northeast!!.lat
-            val lngFirst = result.routes[0].bounds!!.northeast!!.lng
-            val latSecond = result.routes[0].bounds!!.southwest!!.lat
-            val lngSecond = result.routes[0].bounds!!.southwest!!.lng
-
-            Log.d("Bound", latFirst.toString()+"-"+lngFirst.toString() + " and " +latFirst.toString()+"-"+lngFirst.toString())
-            val routeBound = LatLngBounds(
-                    LatLng(latFirst!!, lngFirst!!),
-                    LatLng(latSecond!!, lngSecond!!))
-
-            // Set the camera to the greatest possible zoom level that includes the bounds
-            map.moveCamera(CameraUpdateFactory.newLatLngBounds(routeBound, 10))
-
-            result.routes[0].legs!![0].steps!!.forEach { it ->
-                map.addPolyline(PolylineOptions().apply {
-                    add( LatLng(it.startLocation!!.lat!!, it.startLocation.lng!!) )
-                    width(INITIAL_STROKE_WIDTH_PX.toFloat())
-                    color(Color.BLUE)
-                    geodesic(true)
-                })
+            val route = result.routes!![0].legs!![0].steps!!.map { it ->
+               LatLng(it.startLocation!!.lat!!, it.startLocation.lng!!)
             }
+
+            zoomRoute(map, route)
+
 
         }
         else
@@ -179,5 +164,24 @@ class RouteActivity :
         }
     }
 
+    /**
+     * Zooms a Route (given a List of LalLng) at the greatest possible zoom level.
+     *
+     * @param googleMap: instance of GoogleMap
+     * @param lstLatLngRoute: list of LatLng forming Route
+     */
+    fun zoomRoute(googleMap: GoogleMap, lstLatLngRoute: List<LatLng>) {
+
+        //if (googleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()) return
+
+        val boundsBuilder = LatLngBounds.Builder()
+        for (latLngPoint in lstLatLngRoute)
+            boundsBuilder.include(latLngPoint)
+
+        val routePadding = 100
+        val latLngBounds = boundsBuilder.build()
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding))
+    }
 
 }
