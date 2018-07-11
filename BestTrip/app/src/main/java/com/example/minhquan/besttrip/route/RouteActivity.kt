@@ -2,6 +2,7 @@ package com.example.minhquan.besttrip.route
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -30,6 +31,7 @@ import android.os.Build
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import com.example.minhquan.besttrip.login.view.MainActivity
 import com.google.android.gms.location.*
 
 import kotlinx.android.synthetic.main.nav_header.view.*
@@ -68,8 +70,11 @@ class RouteActivity :
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.nav_logout -> {
-                Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Log out!!",Toast.LENGTH_LONG).show()
                 FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
 

@@ -53,8 +53,10 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         //gửi request
         sign_in_button.setOnClickListener{
             signIn()
-            val intent = Intent(context, RouteActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(context, RouteActivity::class.java)
+//            startActivity(intent)
+//            activity?.finish()
+
         }
 
         // check null when login
@@ -98,6 +100,10 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
                 // successful -> authenticate with Firebase
                 val account = result.signInAccount
                 LoginGooglePresenter(this).fireBaseAuthWithGoogle(account,mAuth)
+                
+                val intent = Intent(context, RouteActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
             } else {
                 // failed -> update UI
                 updateUI(null)
@@ -133,6 +139,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         Toast.makeText(activity,"Login Success", Toast.LENGTH_LONG).show()
         val intent = Intent(context, RouteActivity::class.java)
         startActivity(intent)
+        activity?.finish()
     }
 
     override fun showLoginFail() {
