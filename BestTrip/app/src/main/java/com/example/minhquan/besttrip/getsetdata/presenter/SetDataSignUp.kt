@@ -6,9 +6,9 @@ import com.example.minhquan.besttrip.login.view.SignUp
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 
-class SetDataPresenter() {
+class SetDataSignUp() {
     fun createNewUserFireBase(edtEmail: EditText,edtFullName: EditText,edtPassWord: EditText,edtPhoneNumber: EditText){
-        val database = FirebaseDatabase.getInstance().getReference()
+        val database = FirebaseDatabase.getInstance().reference
 
         val user = User(edtEmail.text.toString(),null,null,edtFullName.text.toString(),
                 edtPassWord.text.toString(),edtPhoneNumber.text.toString())

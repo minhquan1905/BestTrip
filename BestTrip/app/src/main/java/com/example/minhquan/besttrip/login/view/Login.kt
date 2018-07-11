@@ -11,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.getsetdata.view.Home
+import com.example.minhquan.besttrip.datafirebase.Client
+import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
+import com.example.minhquan.besttrip.getsetdata.view.GetDataViewItf
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
@@ -21,15 +23,18 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.login_fragment.*
 
-class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener {
+class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, GetDataViewItf {
 
     private val TAG = "JSAGoogleSignIn"
     val REQUEST_CODE_SIGN_IN = 1234
 
     private var mAuth: FirebaseAuth? = null
     private var mGoogleApiClient: GoogleApiClient? = null
+    //emailUser use to filter User from Client
+    var emailUser : String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.login_fragment, container, false)
@@ -51,7 +56,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
 
         mAuth= FirebaseAuth.getInstance()
-        //gửi request
+        // Google button
         sign_in_button.setOnClickListener{ signIn() }
 
         // check null when login
@@ -68,9 +73,6 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
             if(check)
                 LoginPresenter(this).login(edtEmailLogin,edtPasswordLogin)
         }
-
-
-
     }
 
     override fun onStart() {
@@ -79,23 +81,14 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         val currentUser = mAuth!!.currentUser
         updateUI(currentUser)
 
-        /**
-         * Rock lee
-         */
-        /*if(currentUser != null) {
-            val intent = Intent(context, Home::class.java)
-            intent.putExtra("emailUser",currentUser.email)
-            startActivity(intent)
-            activity?.finish()
-        }*/
         if (currentUser != null){
-            val intent = Intent(activity, RouteActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            //Getdata Client from FireBase
+            emailUser = currentUser.email!!
+            val database = FirebaseDatabase.getInstance().reference
+            GetDataLogin(this).getDataClient(database.child("Client"))
         }
-
     }
-
+    // Login with Google button
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent();
@@ -112,8 +105,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
             } else {
                 // failed -> update UI
                 updateUI(null)
-                Toast.makeText(context, "SignIn: failed!",
-                        Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "SignIn: failed!", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -141,12 +133,25 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
     override fun showLoginSuccess() {
         Toast.makeText(activity,"Login Success", Toast.LENGTH_LONG).show()
-        val intent = Intent(context, RouteActivity::class.java)
-        startActivity(intent)
-        activity?.finish()
+        emailUser = edtEmailLogin.text.toString()
+        //Getdata Client from FireBase
+        val database = FirebaseDatabase.getInstance().reference
+        GetDataLogin(this).getDataClient(database.child("Client"))
     }
-
     override fun showLoginFail() {
         Toast.makeText(activity,"Login Fail", Toast.LENGTH_LONG).show()
+    }
+
+    override fun showDataClient(ob: Client){
+        // ShowData Client
+        val user = GetDataLogin(this).filterEmail(ob, this.emailUser)
+        Log.d("DataUser",user[0]?.toString())
+
+        val intent = Intent(activity, RouteActivity::class.java)
+        /*val mBundle = Bundle()
+        mBundle.putSerializable("Data User",user[0])
+        intent.putExtras(mBundle)*/
+        startActivity(intent)
+        activity?.finish()
     }
 }
