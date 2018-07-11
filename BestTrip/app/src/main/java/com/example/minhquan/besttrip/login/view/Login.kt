@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
+import com.example.minhquan.besttrip.getsetdata.view.Home
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
@@ -77,9 +78,12 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = mAuth!!.currentUser
         updateUI(currentUser)
-        val intent = Intent(context, RouteActivity::class.java)
-        startActivity(intent)
-
+        if(currentUser != null) {
+            val intent = Intent(context, Home::class.java)
+            intent.putExtra("emailUser",currentUser.email)
+            startActivity(intent)
+            activity?.finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -13,9 +13,7 @@ class GetDataPresenter(val view : Home) {
 
                 val ob = getClientX(dtSnap)
 
-                    Log.e("xxxxxy",dtSnap.toString())
                     Log.e("xxxxxxxxxxx2",ob.arrayUser[0].email)
-
                     view.showDataChild(ob)
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -43,8 +41,14 @@ class GetDataPresenter(val view : Home) {
                 data.child("id").value.toString(), data.child("name").value.toString(), data.child("password").value.toString(),
                 data.child("phone").value.toString())
     }
+
     fun getClientX(data: DataSnapshot) : Client{
         return Client(data.children.map { it -> getUserX(it) })
+    }
+
+
+    fun filterEmail(ob : Client, emailUser : String?): List<User>{
+        return ob.arrayUser.filter { it.email == emailUser }
     }
 
 
