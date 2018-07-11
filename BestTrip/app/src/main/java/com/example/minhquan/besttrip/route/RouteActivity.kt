@@ -8,15 +8,12 @@ import android.location.LocationListener
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.R.id.nav_logout
-import com.example.minhquan.besttrip.R.id.toolBar
 import com.example.minhquan.besttrip.model.ResultRoute
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,11 +24,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_route.*
 import android.location.LocationManager
-import com.google.android.gms.maps.CameraUpdate
-
 
 
 class RouteActivity :
@@ -40,16 +34,6 @@ class RouteActivity :
         OnMapReadyCallback,
         LocationListener,
         RouteContract.View {
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.nav_logout -> {
-                Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
-                FirebaseAuth.getInstance().signOut()
-            }
-        }
-
-        return true
-    }
 
 
     private val MIN_TIME: Long = 400
@@ -77,9 +61,6 @@ class RouteActivity :
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
-
         navigationView.bringToFront()
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -104,6 +85,17 @@ class RouteActivity :
 
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_logout -> {
+                Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
+                FirebaseAuth.getInstance().signOut()
+            }
+        }
+
+        return true
+    }
+
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap ?: return
         with(googleMap) {}
@@ -111,18 +103,6 @@ class RouteActivity :
         RoutePresenter(this)
         setupView()
 
-    }
-
-    override fun showProgress(isShow: Boolean) {
-        loader.visibility = if (isShow) View.VISIBLE else View.GONE
-    }
-
-    override fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun setPresenter(presenter: RouteContract.Presenter) {
-        this.presenter = presenter
     }
 
     /**
@@ -218,6 +198,18 @@ class RouteActivity :
 
     }
 
+    override fun showProgress(isShow: Boolean) {
+        loader.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setPresenter(presenter: RouteContract.Presenter) {
+        this.presenter = presenter
+    }
+
     override fun onLocationChanged(location: Location?) {
         val latLng = LatLng(location!!.latitude, location.longitude)
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
@@ -225,17 +217,11 @@ class RouteActivity :
         locationManager.removeUpdates(this)
     }
 
-    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
 
-    }
+    override fun onProviderEnabled(provider: String?) {}
 
-    override fun onProviderEnabled(provider: String?) {
-
-    }
-
-    override fun onProviderDisabled(provider: String?) {
-
-    }
+    override fun onProviderDisabled(provider: String?) {}
 
 
 
