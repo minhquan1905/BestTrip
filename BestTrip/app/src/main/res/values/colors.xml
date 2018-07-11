@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#448ef6</color>
-    <color name="colorPrimaryDark">#1a3c40</color>
+    <color name="colorPrimaryLight">#e4f9f5</color>
+    <color name="colorPrimary">#30e3ca</color>
+    <color name="colorPrimaryDark">#11999e</color>
+    <color name="colorPrimaryDarkMore">#40514e</color>
     <color name="colorAccent">#75c2f6</color>
     <color name="colorWhite">#e4eddb</color>
-    <color name="tab_background_selected">#65daf7</color>
+    <color name="tab_background_selected">#e4f9f5</color>
     <color name="yellow">#ffe981</color>
     <color name="gray">#c5c2c2</color>
 </resources>

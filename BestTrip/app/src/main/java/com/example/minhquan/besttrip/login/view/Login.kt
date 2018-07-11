@@ -78,12 +78,22 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = mAuth!!.currentUser
         updateUI(currentUser)
-        if(currentUser != null) {
+
+        /**
+         * Rock lee
+         */
+        /*if(currentUser != null) {
             val intent = Intent(context, Home::class.java)
             intent.putExtra("emailUser",currentUser.email)
             startActivity(intent)
             activity?.finish()
+        }*/
+        if (currentUser != null){
+            val intent = Intent(activity, RouteActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -95,6 +105,10 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
                 // successful -> authenticate with Firebase
                 val account = result.signInAccount
                 LoginGooglePresenter(this).fireBaseAuthWithGoogle(account,mAuth)
+
+                val intent = Intent(context, RouteActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
             } else {
                 // failed -> update UI
                 updateUI(null)
@@ -129,6 +143,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         Toast.makeText(activity,"Login Success", Toast.LENGTH_LONG).show()
         val intent = Intent(context, RouteActivity::class.java)
         startActivity(intent)
+        activity?.finish()
     }
 
     override fun showLoginFail() {
