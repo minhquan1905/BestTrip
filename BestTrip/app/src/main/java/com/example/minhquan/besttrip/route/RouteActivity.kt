@@ -1,7 +1,9 @@
 package com.example.minhquan.besttrip.route
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
@@ -26,6 +28,8 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_route.*
 import android.location.LocationManager
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 
 import kotlinx.android.synthetic.main.nav_header.view.*
 
@@ -37,7 +41,7 @@ class RouteActivity :
         LocationListener,
         RouteContract.View {
 
-
+    private val MY_PERMISSIONS_REQUEST_LOCATION = 99
     private val MIN_TIME: Long = 400
     private val MIN_DISTANCE = 1000f
     private val INITIAL_STROKE_WIDTH_PX = 5
@@ -56,9 +60,6 @@ class RouteActivity :
                 supportFragmentManager.findFragmentById(R.id.mapView) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this)
-
         setSupportActionBar(toolBar)
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -76,11 +77,14 @@ class RouteActivity :
 
         }
 
+
         drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
         // setup layout for navigationView header
         setUpViewHeader()
+
+        checkPermission()
 
     }
 
@@ -101,6 +105,34 @@ class RouteActivity :
         }
 
         return true
+    }
+
+
+    private fun checkPermission() {
+
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        MY_PERMISSIONS_REQUEST_LOCATION)
+                locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this)
+            }
+        } else {
+            // Permission has already been granted
+            Log.d("Permission access","Permission has already been granted")
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this)
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -218,6 +250,9 @@ class RouteActivity :
     }
 
     override fun onLocationChanged(location: Location?) {
+
+        Log.d("Class access","Involved location change")
+
         val latLng = LatLng(location!!.latitude, location.longitude)
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
         map.animateCamera(cameraUpdate)
