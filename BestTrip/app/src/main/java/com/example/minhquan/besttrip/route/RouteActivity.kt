@@ -2,11 +2,9 @@ package com.example.minhquan.besttrip.route
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
-import android.location.LocationListener
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -28,8 +26,11 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_route.*
 import android.location.LocationManager
+import android.os.Build
+import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import com.google.android.gms.location.*
 
 import kotlinx.android.synthetic.main.nav_header.view.*
 
@@ -38,16 +39,14 @@ class RouteActivity :
         AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
-        LocationListener,
         RouteContract.View {
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
-    private val MIN_TIME: Long = 400
-    private val MIN_DISTANCE = 1000f
     private val INITIAL_STROKE_WIDTH_PX = 5
 
     private lateinit var map: GoogleMap
-    private lateinit var locationManager: LocationManager
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var  locationRequest : LocationRequest
     private lateinit var presenter: RouteContract.Presenter
 
 
@@ -60,39 +59,9 @@ class RouteActivity :
                 supportFragmentManager.findFragmentById(R.id.mapView) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
-        setSupportActionBar(toolBar)
-        supportActionBar?.title = ""
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        navigationView.bringToFront()
-        navigationView.setNavigationItemSelectedListener(this)
-
-        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                toolBar,
-                R.string.open,
-                R.string.close
-        ){
-
-        }
-
-
-        drawerLayout.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
-
-        // setup layout for navigationView header
-        setUpViewHeader()
-
-        checkPermission()
-
-    }
-
-    private fun setUpViewHeader() {
-        val headerView = navigationView.inflateHeaderView(R.layout.nav_header)
-
-        headerView.imgProfile.setImageResource(R.drawable.ic_car)
-        headerView.tvUsername.text = "Ginn"
+        setupView()
 
     }
 
@@ -107,42 +76,82 @@ class RouteActivity :
         return true
     }
 
+    @SuppressLint("MissingPermission")
+    override fun onMapReady(googleMap: GoogleMap?) {
 
-    private fun checkPermission() {
+        map = googleMap ?: return
 
-        if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        locationRequest = LocationRequest.create()
+        locationRequest.interval = 120000
+        locationRequest.fastestInterval = 120000
+        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
 
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)) {
-
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //Location Permission already granted
+                fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper())
+                map.isMyLocationEnabled = true
             } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        MY_PERMISSIONS_REQUEST_LOCATION)
-                locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this)
+                //Request Location Permission
+                checkPermission()
             }
-        } else {
-            // Permission has already been granted
-            Log.d("Permission access","Permission has already been granted")
-            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this)
+        }
+        else {
+            fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
+            map.isMyLocationEnabled = true
+        }
+
+        RoutePresenter(this)
+
+        btnCancel.setOnClickListener {
+            edit_origin.setText("")
+            edit_destination.setText("")
+            map.clear()
+        }
+
+        btnFind.setOnClickListener {
+            val origin: String = edit_origin.text.toString()
+            val destination: String = edit_destination.text.toString()
+
+            if (origin == "")
+                Toast.makeText(this, "Origin location can not be empty", Toast.LENGTH_SHORT).show()
+            else if (destination == "")
+                Toast.makeText(this, "Destination location can not be empty", Toast.LENGTH_SHORT).show()
+            else if (origin != "" && destination != "")
+                presenter.startGetRoute(origin, destination)
+        }
+
+    }
+
+    private var mLocationCallback :LocationCallback = object:LocationCallback() {
+
+        override fun onLocationResult(locationResult: LocationResult) {
+
+            val locationList = locationResult.locations
+
+            if (locationList.count() > 0) {
+                //The last location in the list is the newest
+                val location : Location = locationList[locationList.count() - 1]
+                Log.i("MapsActivity", "Location: " + location.latitude + " " + location.longitude)
+
+                //Place current location marker
+                val latLng = LatLng(location.latitude, location.longitude)
+                val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
+                map.animateCamera(cameraUpdate)
+                //move map camera
+                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11f))
+
+                map.addMarker(MarkerOptions().apply{
+                    position(latLng)
+                    title("Origin")
+                    icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                })
+            }
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap?) {
-        map = googleMap ?: return
-        with(googleMap) {}
-
-        RoutePresenter(this)
-        setupView()
-
-    }
 
     /**
      * Function for handle response data when request's successful
@@ -166,27 +175,71 @@ class RouteActivity :
     }
 
     /**
-     * Function for setup listener for action buttons
+     * Function checking permission for ACCESS_FINE_LOCATION
+     */
+    private fun checkPermission() {
+
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        MY_PERMISSIONS_REQUEST_LOCATION)
+
+            }
+        } else {
+            // Permission has already been granted
+            Log.d("Permission access","Permission has already been granted")
+
+
+        }
+    }
+
+    /**
+     * Function for setup listener for action buttons, actionbar
      */
     private fun setupView() {
 
-        btnCancel.setOnClickListener {
-            edit_origin.setText("")
-            edit_destination.setText("")
-            map.clear()
-        }
+        setSupportActionBar(toolBar)
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        btnFind.setOnClickListener {
-            val origin: String = edit_origin.text.toString()
-            val destination: String = edit_destination.text.toString()
+        navigationView.bringToFront()
+        navigationView.setNavigationItemSelectedListener(this)
 
-            if (origin == "")
-                Toast.makeText(this, "Origin location can not be empty", Toast.LENGTH_SHORT).show()
-            else if (destination == "")
-                Toast.makeText(this, "Destination location can not be empty", Toast.LENGTH_SHORT).show()
-            else if (origin != "" && destination != "")
-                presenter.startGetRoute(origin, destination)
-        }
+        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolBar,
+                R.string.open,
+                R.string.close
+        ){}
+
+        drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+        // setup layout for navigationView header
+        setUpViewHeader()
+
+    }
+
+    /**
+     * Function for setup header
+     */
+    private fun setUpViewHeader() {
+        val headerView = navigationView.inflateHeaderView(R.layout.nav_header)
+
+        headerView.imgProfile.setImageResource(R.drawable.ic_car)
+        headerView.tvUsername.text = "Ginn"
+
     }
 
     /**
@@ -232,7 +285,7 @@ class RouteActivity :
         googleMap.addMarker(MarkerOptions().apply{
             position(lstLatLngRoute.last())
             title("Destination")
-            icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
         })
 
     }
@@ -249,22 +302,12 @@ class RouteActivity :
         this.presenter = presenter
     }
 
-    override fun onLocationChanged(location: Location?) {
-
-        Log.d("Class access","Involved location change")
-
-        val latLng = LatLng(location!!.latitude, location.longitude)
-        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
-        map.animateCamera(cameraUpdate)
-        locationManager.removeUpdates(this)
-    }
-
-    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-
-    override fun onProviderEnabled(provider: String?) {}
-
-    override fun onProviderDisabled(provider: String?) {}
-
 
 
 }
+
+/*
+val latLng = LatLng(location!!.latitude, location.longitude)
+val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
+map.animateCamera(cameraUpdate)
+locationManager.removeUpdates(this)*/
