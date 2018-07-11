@@ -4,12 +4,16 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
+import com.example.minhquan.besttrip.R.id.nav_logout
+import com.example.minhquan.besttrip.R.id.toolBar
 import com.example.minhquan.besttrip.model.ResultRoute
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,17 +22,30 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_route.*
 
 class RouteActivity :
         AppCompatActivity(),
+        NavigationView.OnNavigationItemSelectedListener,
         GoogleMap.OnCameraMoveStartedListener,
         GoogleMap.OnCameraMoveListener,
         GoogleMap.OnCameraMoveCanceledListener,
         GoogleMap.OnCameraIdleListener,
         OnMapReadyCallback,
         RouteContract.View {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_logout -> {
+                Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
+                FirebaseAuth.getInstance().signOut()
+            }
+        }
+
+        return true
+    }
+
 
     private val INITIAL_STROKE_WIDTH_PX = 5
 
@@ -48,13 +65,20 @@ class RouteActivity :
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
+//        navigationView.setNavigationItemSelectedListener {
+//            when(it.itemId){
+//
+//                R.id.nav_logout -> {
+//                    Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
+//                    FirebaseAuth.getInstance().signOut()
+//                }
+//            }
+//            drawerLayout.closeDrawer(GravityCompat.START)
+//            true
+//        }
 
-            }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
+        navigationView.bringToFront()
+        navigationView.setNavigationItemSelectedListener(this)
 
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
                 this,
@@ -75,7 +99,14 @@ class RouteActivity :
         drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
+       // setNavigationViewListener()
+
     }
+
+//    private fun setNavigationViewListener() {
+//
+//        navigationView.setNavigationItemSelectedListener(this)
+//    }
 
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap ?: return
@@ -177,6 +208,7 @@ class RouteActivity :
                 presenter.startGetRoute(origin, destination)
         }
     }
+
 
 
 }

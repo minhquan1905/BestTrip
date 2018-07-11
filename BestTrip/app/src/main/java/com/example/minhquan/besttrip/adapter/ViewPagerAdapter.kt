@@ -31,8 +31,5 @@ class ViewPagerAdapter(private var context: Context, fm: FragmentManager) : Frag
         }
     }
 
-//    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-//        return super.instantiateItem(container, position)
-//    }
 
 }
