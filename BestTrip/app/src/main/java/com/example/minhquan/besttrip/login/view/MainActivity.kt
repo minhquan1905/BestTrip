@@ -1,11 +1,7 @@
 package com.example.minhquan.besttrip.login.view
 
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.ViewPager
 import android.support.design.widget.TabLayout
 import com.example.minhquan.besttrip.R
