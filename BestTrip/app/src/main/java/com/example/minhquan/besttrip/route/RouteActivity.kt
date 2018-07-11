@@ -1,7 +1,10 @@
 package com.example.minhquan.besttrip.route
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
+import android.location.Location
+import android.location.LocationListener
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
@@ -15,24 +18,26 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_route.*
+import android.location.LocationManager
+import com.google.android.gms.maps.CameraUpdate
+import com.google.android.gms.maps.model.LatLng
+
 
 class RouteActivity :
         AppCompatActivity(),
-        GoogleMap.OnCameraMoveStartedListener,
-        GoogleMap.OnCameraMoveListener,
-        GoogleMap.OnCameraMoveCanceledListener,
-        GoogleMap.OnCameraIdleListener,
         OnMapReadyCallback,
+        LocationListener,
         RouteContract.View {
 
+    private val MIN_TIME: Long = 400
+    private val MIN_DISTANCE = 1000f
     private val INITIAL_STROKE_WIDTH_PX = 5
 
     private lateinit var map: GoogleMap
+    private lateinit var locationManager: LocationManager
     private lateinit var presenter: RouteContract.Presenter
 
 
@@ -40,9 +45,13 @@ class RouteActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_route)
+
         val mapFragment : SupportMapFragment? =
                 supportFragmentManager.findFragmentById(R.id.mapView) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
+
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this)
 
         setSupportActionBar(toolBar)
         supportActionBar?.title = ""
@@ -79,31 +88,10 @@ class RouteActivity :
 
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap ?: return
-        with(googleMap) {
-            setOnCameraIdleListener(this@RouteActivity)
-            setOnCameraMoveStartedListener(this@RouteActivity)
-            setOnCameraMoveListener(this@RouteActivity)
-            setOnCameraMoveCanceledListener(this@RouteActivity)
-        }
+        with(googleMap) {}
 
         RoutePresenter(this)
         setupView()
-
-    }
-
-    override fun onCameraMoveStarted(p0: Int) {
-
-    }
-
-    override fun onCameraMove() {
-
-    }
-
-    override fun onCameraMoveCanceled() {
-
-    }
-
-    override fun onCameraIdle() {
 
     }
 
@@ -133,8 +121,7 @@ class RouteActivity :
                LatLng(it.startLocation!!.lat!!, it.startLocation.lng!!)
             }
 
-            zoomRoute(map, route)
-
+            drawRoute(map, route)
 
         }
         else
@@ -142,13 +129,14 @@ class RouteActivity :
     }
 
     /**
-     * Function for setup popup listener button
+     * Function for setup listener for action buttons
      */
     private fun setupView() {
 
         btnCancel.setOnClickListener {
             edit_origin.setText("")
             edit_destination.setText("")
+            map.clear()
         }
 
         btnFind.setOnClickListener {
@@ -165,23 +153,71 @@ class RouteActivity :
     }
 
     /**
-     * Zooms a Route (given a List of LalLng) at the greatest possible zoom level.
+     * Zooms a Route (given a List of LalLng) at the greatest possible zoom level, draw a direction
+     * given location and set up marker
      *
      * @param googleMap: instance of GoogleMap
      * @param lstLatLngRoute: list of LatLng forming Route
      */
-    fun zoomRoute(googleMap: GoogleMap, lstLatLngRoute: List<LatLng>) {
-
-        //if (googleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()) return
+    private fun drawRoute(googleMap: GoogleMap, lstLatLngRoute: List<LatLng>) {
 
         val boundsBuilder = LatLngBounds.Builder()
-        for (latLngPoint in lstLatLngRoute)
+        val lineBuilder = PolylineOptions()
+
+
+        for (latLngPoint in lstLatLngRoute) {
             boundsBuilder.include(latLngPoint)
 
-        val routePadding = 100
+            // A geodesic polyline that goes form origin to destination.
+            lineBuilder.apply {
+                add(latLngPoint)
+                width(INITIAL_STROKE_WIDTH_PX.toFloat())
+                color(Color.BLUE)
+                geodesic(true)
+            }
+
+        }
+
+        val routePadding = 0
         val latLngBounds = boundsBuilder.build()
 
+        googleMap.setPadding(100,100,100,200)
+
         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding))
+        googleMap.addPolyline(lineBuilder)
+
+        googleMap.addMarker(MarkerOptions().apply{
+            position(lstLatLngRoute.first())
+            title("Origin")
+            icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+        })
+
+        googleMap.addMarker(MarkerOptions().apply{
+            position(lstLatLngRoute.last())
+            title("Destination")
+            icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+        })
+
     }
+
+    override fun onLocationChanged(location: Location?) {
+        val latLng = LatLng(location!!.latitude, location.longitude)
+        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
+        map.animateCamera(cameraUpdate)
+        locationManager.removeUpdates(this)
+    }
+
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+
+    }
+
+    override fun onProviderEnabled(provider: String?) {
+
+    }
+
+    override fun onProviderDisabled(provider: String?) {
+
+    }
+
 
 }
