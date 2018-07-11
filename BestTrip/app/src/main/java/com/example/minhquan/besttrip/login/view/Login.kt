@@ -100,7 +100,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
                 // successful -> authenticate with Firebase
                 val account = result.signInAccount
                 LoginGooglePresenter(this).fireBaseAuthWithGoogle(account,mAuth)
-                
+
                 val intent = Intent(context, RouteActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
