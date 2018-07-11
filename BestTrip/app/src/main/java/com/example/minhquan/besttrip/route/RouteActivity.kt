@@ -7,30 +7,50 @@ import android.location.Location
 import android.location.LocationListener
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
+import com.example.minhquan.besttrip.R.id.nav_logout
+import com.example.minhquan.besttrip.R.id.toolBar
 import com.example.minhquan.besttrip.model.ResultRoute
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.PolylineOptions
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_route.*
 import android.location.LocationManager
 import com.google.android.gms.maps.CameraUpdate
-import com.google.android.gms.maps.model.LatLng
+
 
 
 class RouteActivity :
         AppCompatActivity(),
+        NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
         LocationListener,
         RouteContract.View {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_logout -> {
+                Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
+                FirebaseAuth.getInstance().signOut()
+            }
+        }
+
+        return true
+    }
+
 
     private val MIN_TIME: Long = 400
     private val MIN_DISTANCE = 1000f
@@ -60,10 +80,8 @@ class RouteActivity :
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
 
-            }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
+        navigationView.bringToFront()
+        navigationView.setNavigationItemSelectedListener(this)
 
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
                 this,
@@ -218,6 +236,7 @@ class RouteActivity :
     override fun onProviderDisabled(provider: String?) {
 
     }
+
 
 
 }

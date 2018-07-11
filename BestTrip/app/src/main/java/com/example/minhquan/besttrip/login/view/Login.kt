@@ -51,7 +51,11 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
         mAuth= FirebaseAuth.getInstance()
         //gửi request
-        sign_in_button.setOnClickListener{ signIn() }
+        sign_in_button.setOnClickListener{
+            signIn()
+            val intent = Intent(context, RouteActivity::class.java)
+            startActivity(intent)
+        }
 
         // check null when login
         btnLogin.setOnClickListener {
@@ -77,8 +81,11 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = mAuth!!.currentUser
         updateUI(currentUser)
-        val intent = Intent(context, RouteActivity::class.java)
-        startActivity(intent)
+        if (currentUser != null){
+            val intent = Intent(activity, RouteActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
 
     }
 
@@ -119,6 +126,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
     private fun signIn() {
         val intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
         startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
+
     }
 
     override fun showLoginSuccess() {
