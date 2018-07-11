@@ -5,15 +5,12 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.R.id.nav_logout
-import com.example.minhquan.besttrip.R.id.toolBar
 import com.example.minhquan.besttrip.model.ResultRoute
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,8 +20,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_route.*
+import kotlinx.android.synthetic.main.nav_header.view.*
+
 
 class RouteActivity :
         AppCompatActivity(),
@@ -38,7 +36,7 @@ class RouteActivity :
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.nav_logout -> {
-                Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show()
                 FirebaseAuth.getInstance().signOut()
             }
         }
@@ -65,18 +63,6 @@ class RouteActivity :
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-//        navigationView.setNavigationItemSelectedListener {
-//            when(it.itemId){
-//
-//                R.id.nav_logout -> {
-//                    Toast.makeText(this,"abccccc",Toast.LENGTH_LONG).show()
-//                    FirebaseAuth.getInstance().signOut()
-//                }
-//            }
-//            drawerLayout.closeDrawer(GravityCompat.START)
-//            true
-//        }
-
         navigationView.bringToFront()
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -87,26 +73,25 @@ class RouteActivity :
                 R.string.open,
                 R.string.close
         ){
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
-            }
 
-            override fun onDrawerClosed(drawerView: View) {
-                super.onDrawerClosed(drawerView)
-            }
         }
 
         drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
-       // setNavigationViewListener()
+        // setup layout for navigationView header
+        setUpViewHeader()
 
     }
 
-//    private fun setNavigationViewListener() {
-//
-//        navigationView.setNavigationItemSelectedListener(this)
-//    }
+    private fun setUpViewHeader() {
+        val headerView = navigationView.inflateHeaderView(R.layout.nav_header)
+
+        headerView.imgProfile.setImageResource(R.drawable.ic_car)
+        headerView.tvUsername.text = "Ginn"
+
+    }
+
 
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap ?: return
