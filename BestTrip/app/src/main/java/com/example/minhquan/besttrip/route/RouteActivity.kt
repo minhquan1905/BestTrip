@@ -57,9 +57,9 @@ class RouteActivity :
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var  locationRequest : LocationRequest
+    private lateinit var locationRequest : LocationRequest
     private lateinit var presenter: RouteContract.Presenter
-
+    private lateinit var resultRoute: ResultRoute
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,7 +167,7 @@ class RouteActivity :
                             center(latLng )
                             radius(RADIUS_LARGE)
                             strokeWidth(STROKE_WIDTH)
-                            strokeColor(R.color.colorPrimaryDark)
+                            strokeColor(R.color.colorPrimary)
                             fillColor(R.color.colorPrimary)
                         })
 
@@ -199,11 +199,11 @@ class RouteActivity :
 
         if (result.status.toString() == "OK") {
 
-            val route = result.routes!![0].legs!![0].steps!!.map { it ->
-               LatLng(it.startLocation!!.lat!!, it.startLocation.lng!!)
-            }
+            resultRoute = result
 
-            drawRoute(map, route)
+            edit_origin.setText(resultRoute.routes!![0].legs!![0].startAddress)
+            edit_destination.setText(resultRoute.routes!![0].legs!![0].endAddress)
+            drawRoute(map, decodePoly(resultRoute.routes!![0].overviewPolyline!!.points!!))
 
         }
         else
@@ -246,9 +246,6 @@ class RouteActivity :
             Log.d("Permission access","Permission has already been granted")
 
         }
-
-
-
 
     }
 
@@ -311,7 +308,7 @@ class RouteActivity :
             lineBuilder.apply {
                 add(latLngPoint)
                 width(INITIAL_STROKE_WIDTH_PX.toFloat())
-                color(R.color.colorPrimaryDark)
+                color(R.color.colorPrimary)
                 geodesic(true)
             }
 
@@ -330,7 +327,7 @@ class RouteActivity :
                     center(lstLatLngRoute.first())
                     radius(RADIUS_SMALL)
                     strokeWidth(STROKE_WIDTH)
-                    strokeColor(R.color.colorPrimaryDark)
+                    strokeColor(R.color.colorPrimary)
                     fillColor(R.color.colorPrimary)
                 })
 
@@ -338,8 +335,52 @@ class RouteActivity :
             position(lstLatLngRoute.last())
             title("Destination")
             icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-        })
+        }).run {
+            // add a tag to the marker
+            tag = "Destination"
+        }
 
+    }
+
+    /**
+     * Method to decode polyline points
+     * Courtesy : https://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
+     */
+    private fun decodePoly(encoded: String): List<LatLng> {
+        val poly = ArrayList<LatLng>()
+        var index = 0
+        val len = encoded.length
+        var lat = 0
+        var lng = 0
+
+        while (index < len) {
+            var b: Int
+            var shift = 0
+            var result = 0
+            do {
+                b = encoded[index++].toInt() - 63
+                result = result or (b and 0x1f shl shift)
+                shift += 5
+            } while (b >= 0x20)
+            val dlat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+            lat += dlat
+
+            shift = 0
+            result = 0
+            do {
+                b = encoded[index++].toInt() - 63
+                result = result or (b and 0x1f shl shift)
+                shift += 5
+            } while (b >= 0x20)
+            val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+            lng += dlng
+
+            val p = LatLng(lat.toDouble() / 1E5,
+                    lng.toDouble() / 1E5)
+            poly.add(p)
+        }
+
+        return poly
     }
 
     override fun showProgress(isShow: Boolean) {
