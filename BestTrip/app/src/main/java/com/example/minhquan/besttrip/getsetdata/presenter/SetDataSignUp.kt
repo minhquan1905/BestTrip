@@ -1,10 +1,8 @@
 package com.example.minhquan.besttrip.getsetdata.presenter
 
 import android.widget.EditText
-import com.example.minhquan.besttrip.datafirebase.User
-import com.example.minhquan.besttrip.login.view.SignUp
+import com.example.minhquan.besttrip.model.datafirebase.User
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.sign_up_fragment.*
 
 class SetDataSignUp() {
     fun createNewUserFireBase(edtEmail: EditText,edtFullName: EditText,edtPassWord: EditText,edtPhoneNumber: EditText){

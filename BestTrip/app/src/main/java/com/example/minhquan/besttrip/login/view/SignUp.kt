@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.datafirebase.Client
+import com.example.minhquan.besttrip.model.datafirebase.Client
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataSignUp
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataSignUp
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewItf

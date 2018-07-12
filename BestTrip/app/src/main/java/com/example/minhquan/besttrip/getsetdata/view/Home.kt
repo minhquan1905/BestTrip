@@ -2,13 +2,13 @@ package com.example.minhquan.besttrip.getsetdata.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.datafirebase.Client
-import com.example.minhquan.besttrip.datafirebase.User
-import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataTaxi
+import com.example.minhquan.besttrip.model.datafirebase.User
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.nav_header.*
 
 
 class Home : AppCompatActivity() {
@@ -16,12 +16,17 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        // Get Data User
+        var intent = intent
+        val user : User? = intent.getSerializableExtra("DataUser") as User
+        tvNameTaxi.text = user.toString()
+        //Toast.makeText(this,user?.email,Toast.LENGTH_LONG).show()
     }
 
     override fun onResume() {
         super.onResume()
         //Getdata Taxi from FireBase
         val database = FirebaseDatabase.getInstance().reference
-        GetDataTaxi(this).getDataTaxi(database.child("Taxi/Seater4/MaiLinh"))
+        //GetDataTaxi(this).getDataTaxi(database.child("Taxi/Seater4/MaiLinh"))
     }
 }

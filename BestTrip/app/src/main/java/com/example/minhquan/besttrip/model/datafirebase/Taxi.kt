@@ -1,4 +1,4 @@
-package com.example.minhquan.besttrip.datafirebase
+package com.example.minhquan.besttrip.model.datafirebase
 
 data class UserTaxi(val name: String, val id: String, val numberCar: String, val phone: String, val price: String)
 data class Company(val listUser: List<UserTaxi>)

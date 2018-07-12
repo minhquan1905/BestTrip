@@ -1,7 +1,7 @@
 package com.example.minhquan.besttrip.getsetdata.presenter
 
 import android.util.Log
-import com.example.minhquan.besttrip.datafirebase.*
+import com.example.minhquan.besttrip.model.datafirebase.*
 import com.example.minhquan.besttrip.getsetdata.view.Home
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -30,11 +30,11 @@ class GetDataTaxi(view : Home) {
     fun getCompanyX(data: DataSnapshot) : Company{
         return Company(data.children.map { it -> getUserTaxiX(it) })
     }
-    fun getSeater4X(data: DataSnapshot) : Seater{
+    fun getSeaterX(data: DataSnapshot) : Seater{
         return Seater(getCompanyX(data.child("Grab")),getCompanyX(data.child("MaiLinh")),getCompanyX(data.child("PhuongTrang")))
     }
     fun getTaxiX(data: DataSnapshot) : Taxi{
-        return Taxi(data.children.map { it -> getSeater4X(it) })
+        return Taxi(data.children.map { it -> getSeaterX(it) })
     }
 
 }

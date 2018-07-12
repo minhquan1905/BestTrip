@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.datafirebase.Client
+import com.example.minhquan.besttrip.model.datafirebase.Client
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
+import com.example.minhquan.besttrip.getsetdata.presenter.SetDataLoginGoogle
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewItf
+import com.example.minhquan.besttrip.getsetdata.view.Home
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
@@ -89,6 +91,10 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         }
     }
     // Login with Google button
+    private fun signIn() {
+        val intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+        startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent();
@@ -98,10 +104,13 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
                 // successful -> authenticate with Firebase
                 val account = result.signInAccount
                 LoginGooglePresenter(this).fireBaseAuthWithGoogle(account,mAuth)
+                //Create User
+                SetDataLoginGoogle().createNewUserFireBase(account?.email.toString(),account?.displayName.toString())
+                //Getdata Client from FireBase
+                emailUser = account?.email.toString()
+                val database = FirebaseDatabase.getInstance().reference
+                GetDataLogin(this).getDataClient(database.child("Client"))
 
-                val intent = Intent(context, RouteActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
             } else {
                 // failed -> update UI
                 updateUI(null)
@@ -126,11 +135,6 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 //        }
     }
 
-    private fun signIn() {
-        val intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
-        startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
-    }
-
     override fun showLoginSuccess() {
         Toast.makeText(activity,"Login Success", Toast.LENGTH_LONG).show()
         emailUser = edtEmailLogin.text.toString()
@@ -148,9 +152,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         Log.d("DataUser",user[0]?.toString())
 
         val intent = Intent(activity, RouteActivity::class.java)
-        /*val mBundle = Bundle()
-        mBundle.putSerializable("Data User",user[0])
-        intent.putExtras(mBundle)*/
+        intent.putExtra("DataUser",user[0])
         startActivity(intent)
         activity?.finish()
     }
