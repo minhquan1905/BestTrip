@@ -32,6 +32,7 @@ import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.example.minhquan.besttrip.login.view.MainActivity
+import com.example.minhquan.besttrip.model.ResultAddress
 import com.google.android.gms.location.*
 
 import kotlinx.android.synthetic.main.nav_header.view.*
@@ -43,8 +44,16 @@ class RouteActivity :
         OnMapReadyCallback,
         RouteContract.View {
 
+
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
     private val INITIAL_STROKE_WIDTH_PX = 5
+    private val LEFT = 0
+    private val RIGHT = 25
+    private val TOP = 25
+    private val BOTTOM = 325
+    private val RADIUS_SMALL = 5.0
+    private val RADIUS_LARGE = 100.0
+    private val STROKE_WIDTH = 7f
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -86,6 +95,8 @@ class RouteActivity :
 
         map = googleMap ?: return
 
+        map.setPadding(LEFT, TOP, RIGHT, BOTTOM)
+
         locationRequest = LocationRequest.create()
         locationRequest.interval = 120000
         locationRequest.fastestInterval = 120000
@@ -104,7 +115,7 @@ class RouteActivity :
             }
         }
         else {
-            fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
+            fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper())
             map.isMyLocationEnabled = true
         }
 
@@ -141,30 +152,50 @@ class RouteActivity :
                 val location : Location = locationList[locationList.count() - 1]
                 Log.i("MapsActivity", "Location: " + location.latitude + " " + location.longitude)
 
-                //Place current location marker
-                val latLng = LatLng(location.latitude, location.longitude)
-                val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
-                map.animateCamera(cameraUpdate)
-                //move map camera
-                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11f))
+                //Move camera to last current location
 
-                map.addMarker(MarkerOptions().apply{
-                    position(latLng)
-                    title("Origin")
-                    icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                })
+                map.clear()
+
+                val latLng = LatLng(location.latitude, location.longitude)
+                val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15f)
+                map.animateCamera(cameraUpdate)
+
+                presenter.startGetAddress(location.latitude.toString() + "," + location.longitude.toString())
+
+                map.addCircle(
+                        CircleOptions().apply {
+                            center(latLng )
+                            radius(RADIUS_LARGE)
+                            strokeWidth(STROKE_WIDTH)
+                            strokeColor(R.color.colorPrimaryDark)
+                            fillColor(R.color.colorPrimary)
+                        })
+
+
             }
         }
     }
 
 
     /**
-     * Function for handle response data when request's successful
-     * @param result : Response data
+     * Function for handle response data -Address- when request's successful
+     * @param result : Response data - Address
+     */
+    override fun onGetAddressSuccess(result: ResultAddress) {
+        Log.d("Data Status","Return Address success!")
+
+        if (result.status == "OK")
+            edit_origin.setText(result.results!![0].formattedAddress)
+    }
+
+
+    /**
+     * Function for handle response data -Route- when request's successful
+     * @param result : Response data - Route
      */
     override fun onGetRouteSuccess(result: ResultRoute) {
 
-        Log.d("Data Status","Return success!")
+        Log.d("Data Status","Return route success!")
 
         if (result.status.toString() == "OK") {
 
@@ -199,13 +230,26 @@ class RouteActivity :
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         MY_PERMISSIONS_REQUEST_LOCATION)
 
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(this,
+                                    Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        //Location Permission already granted
+                        fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper())
+                        map.isMyLocationEnabled = true
+                    }
+                }
+
             }
         } else {
             // Permission has already been granted
             Log.d("Permission access","Permission has already been granted")
 
-
         }
+
+
+
+
     }
 
     /**
@@ -267,7 +311,7 @@ class RouteActivity :
             lineBuilder.apply {
                 add(latLngPoint)
                 width(INITIAL_STROKE_WIDTH_PX.toFloat())
-                color(Color.BLUE)
+                color(R.color.colorPrimaryDark)
                 geodesic(true)
             }
 
@@ -276,16 +320,19 @@ class RouteActivity :
         val routePadding = 0
         val latLngBounds = boundsBuilder.build()
 
-        googleMap.setPadding(100,100,100,200)
+        map.setPadding(LEFT, TOP, RIGHT, BOTTOM)
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding))
         googleMap.addPolyline(lineBuilder)
 
-        googleMap.addMarker(MarkerOptions().apply{
-            position(lstLatLngRoute.first())
-            title("Origin")
-            icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-        })
+        map.addCircle(
+                CircleOptions().apply {
+                    center(lstLatLngRoute.first())
+                    radius(RADIUS_SMALL)
+                    strokeWidth(STROKE_WIDTH)
+                    strokeColor(R.color.colorPrimaryDark)
+                    fillColor(R.color.colorPrimary)
+                })
 
         googleMap.addMarker(MarkerOptions().apply{
             position(lstLatLngRoute.last())
@@ -311,8 +358,3 @@ class RouteActivity :
 
 }
 
-/*
-val latLng = LatLng(location!!.latitude, location.longitude)
-val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
-map.animateCamera(cameraUpdate)
-locationManager.removeUpdates(this)*/

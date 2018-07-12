@@ -15,4 +15,8 @@
     <string name="btn_cancel">CANCEL</string>
     <string name="btn_find">FIND</string>
 
+    <!--String for hint-->
+    <string name="edit_hint_origin"><font size="12">Origin Location</font></string>
+    <string name="edit_hint_destination"><font size="12">Origin Location</font></string>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.example.minhquan.besttrip.route
 
+import com.example.minhquan.besttrip.model.ResultAddress
 import com.example.minhquan.besttrip.model.ResultRoute
 import com.example.minhquan.besttrip.utils.RetrofitUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -8,6 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 
 class RoutePresenter(private var view: RouteContract.View) : RouteContract.Presenter {
+
 
 
     //Instance of interface created for Retrofit API calls
@@ -21,6 +23,24 @@ class RoutePresenter(private var view: RouteContract.View) : RouteContract.Prese
 
     init {
         this.view.setPresenter(this)
+    }
+
+    /**
+     * Service to get data of address from Google Map database
+     * @param latlng : The location need to geocode
+     */
+    override fun startGetAddress(latlng: String) {
+        view.showProgress(true)
+        disposable  = service.getAddress(latlng)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result: ResultAddress ->
+                    view.showProgress(false)
+                    view.onGetAddressSuccess(result)
+                }, { error ->
+                    view.showProgress(false)
+                    view.showError(error.localizedMessage)
+                })
     }
 
     /**
