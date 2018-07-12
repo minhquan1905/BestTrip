@@ -14,8 +14,7 @@ import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.model.datafirebase.Client
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataLoginGoogle
-import com.example.minhquan.besttrip.getsetdata.view.GetDataViewItf
-import com.example.minhquan.besttrip.getsetdata.view.Home
+import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
@@ -28,7 +27,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.login_fragment.*
 
-class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, GetDataViewItf {
+class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, GetDataViewClientItf {
 
     private val TAG = "JSAGoogleSignIn"
     val REQUEST_CODE_SIGN_IN = 1234

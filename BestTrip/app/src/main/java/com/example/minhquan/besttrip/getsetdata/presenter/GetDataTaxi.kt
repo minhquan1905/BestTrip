@@ -8,12 +8,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-class GetDataTaxi(view : Home) {
-    fun getDataTaxi(data : DatabaseReference){
+class GetDataTaxi(val view :Home) {
+    fun getDataTaxi(data : DatabaseReference) {
         data.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(dtSnap: DataSnapshot) {
-                val ob = getCompanyX(dtSnap)
+                val ob = getTaxiX(dtSnap)
                 Log.e("ob",ob.toString())
+                view.showDataTaxi(ob)
             }
 
             override fun onCancelled(dtSnap: DatabaseError) {
@@ -30,11 +31,20 @@ class GetDataTaxi(view : Home) {
     fun getCompanyX(data: DataSnapshot) : Company{
         return Company(data.children.map { it -> getUserTaxiX(it) })
     }
-    fun getSeaterX(data: DataSnapshot) : Seater{
-        return Seater(getCompanyX(data.child("Grab")),getCompanyX(data.child("MaiLinh")),getCompanyX(data.child("PhuongTrang")))
+    fun getSeater4X(data: DataSnapshot) : Seater4{
+        return Seater4(getCompanyX(data.child("Grab")),getCompanyX(data.child("MaiLinh")),getCompanyX(data.child("PhuongTrang")),
+                getCompanyX(data.child("SaiGon")),getCompanyX(data.child("Vina")),getCompanyX(data.child("Future")),getCompanyX(data.child("Savico")))
+    }
+    fun getSeater7X(data: DataSnapshot): Seater7{
+        return Seater7(getCompanyX(data.child("Grab")), getCompanyX(data.child("MaiLinh")),
+                getCompanyX(data.child("PhuongTrang")), getCompanyX(data.child("Star")))
+    }
+    fun getVipX(data: DataSnapshot) : Vip{
+        return Vip(getCompanyX(data.child("SaiGon")),getCompanyX(data.child("Savico")),getCompanyX(data.child("Star")))
     }
     fun getTaxiX(data: DataSnapshot) : Taxi{
-        return Taxi(data.children.map { it -> getSeaterX(it) })
+        return Taxi(data.children.map { it -> getSeater4X(it) },data.children.map { it -> getSeater7X(it) },
+                data.children.map { it -> getVipX(it) })
     }
 
 }

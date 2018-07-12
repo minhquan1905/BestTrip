@@ -45,7 +45,7 @@ class GetDataLogin(val view : Login) {
         return ob.listUser.filter { it.email == emailUser }
     }
 
-//    fun getSeaterX(data: DataSnapshot) : Seater4{
+//    fun getSeater4X(data: DataSnapshot) : Seater4{
 //        return Seater4(getCompanyX(data.child()))
 //    }
 

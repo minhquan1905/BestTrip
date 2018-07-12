@@ -1,5 +1,6 @@
 package com.example.minhquan.besttrip.model.datafirebase
 
+import android.os.Parcelable
 import java.io.Serializable
 
 data class Location(var X: String , var Y: String ):Serializable

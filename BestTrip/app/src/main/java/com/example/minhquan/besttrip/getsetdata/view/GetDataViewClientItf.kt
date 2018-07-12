@@ -2,6 +2,6 @@ package com.example.minhquan.besttrip.getsetdata.view
 
 import com.example.minhquan.besttrip.model.datafirebase.Client
 
-interface GetDataViewItf {
+interface GetDataViewClientItf {
     fun showDataClient(ob : Client)
 }
