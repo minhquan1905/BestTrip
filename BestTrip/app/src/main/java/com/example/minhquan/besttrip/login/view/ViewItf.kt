@@ -10,7 +10,7 @@ interface ViewItf {
     interface LoginItf{
         fun showLoginSuccess()
         fun showLoginFail()
-        fun updateUI(user: FirebaseUser?)
+
     }
 
 }

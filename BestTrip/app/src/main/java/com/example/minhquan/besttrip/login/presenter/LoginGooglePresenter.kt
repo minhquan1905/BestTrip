@@ -20,13 +20,13 @@ class LoginGooglePresenter(val view: Login) : AppCompatActivity() {
                         // Sign in success
                         val user = mAuth.currentUser
                         Log.e("FireBase", "signInWithCredential: Success!" + user?.uid)
-                        view.updateUI(user)
+
                     } else {
                         // Sign in fails
                         Log.w("FireBase", "signInWithCredential: Failed!", task.exception)
                         Toast.makeText(applicationContext, "Authentication failed!",
                                 Toast.LENGTH_SHORT).show()
-                        view.updateUI(null)
+
                     }
                 }
     }
