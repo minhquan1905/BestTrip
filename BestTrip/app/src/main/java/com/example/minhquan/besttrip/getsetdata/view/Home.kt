@@ -23,12 +23,12 @@ class Home : AppCompatActivity(),GetDataViewTaxiItf {
         tvNameTaxi.text = user.toString()*/
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         //Getdata Taxi from FireBase
         val database = FirebaseDatabase.getInstance().reference
         GetDataTaxi(this).getDataTaxi(database.child("Taxi"))
-    }
+    }*/
 
     override fun showDataTaxi(ob: Taxi) {
         tvNameTaxi.text = ob.listseater4[0].grab.listUser[0].phone

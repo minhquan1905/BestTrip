@@ -35,7 +35,7 @@ class GetDataSignUp(val view : SignUp) {
     fun getUserX(data: DataSnapshot) : User{
         return User(data.child("email").value.toString(), getHistoryX(data.child("history")),
                 data.child("id").value.toString(), data.child("name").value.toString(), data.child("password").value.toString(),
-                data.child("phone").value.toString())
+                data.child("phone").value.toString(),data.child("image").value.toString())
     }
     fun getClientX(data: DataSnapshot) : Client{
         return Client(data.children.map { it -> getUserX(it) })

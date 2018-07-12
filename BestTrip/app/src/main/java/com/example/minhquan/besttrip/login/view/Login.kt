@@ -15,6 +15,7 @@ import com.example.minhquan.besttrip.model.datafirebase.Client
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataLoginGoogle
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
+import com.example.minhquan.besttrip.getsetdata.view.Home
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity

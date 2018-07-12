@@ -7,7 +7,7 @@ class SetDataLoginGoogle() {
     fun createNewUserFireBase(email: String,name : String){
         val database = FirebaseDatabase.getInstance().reference
 
-        val user = User(email,null,null,name, null,null)
+        val user = User(email,null,null,name, null,null,null)
         database.child("Client").child(name).setValue(user)
     }
 }
