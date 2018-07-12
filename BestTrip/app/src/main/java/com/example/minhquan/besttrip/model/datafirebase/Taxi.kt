@@ -6,4 +6,4 @@ data class Seater4(val grab: Company, val mainlinh: Company, val phuongtrang: Co
                    val vina: Company, val futune: Company, val savico: Company)
 data class Seater7(val grab: Company, val mainlinh: Company, val phuongtrang: Company, val star: Company)
 data class Vip(val saigon: Company, val savico: Company, val star: Company)
-data class Taxi(val listseater4: List<Seater4>, val listseater7: List<Seater7>, val vip: List<Vip>)
+data class Taxi(val seater4: Seater4, val seater7: Seater7, val vip: Vip)

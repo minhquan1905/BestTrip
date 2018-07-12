@@ -76,9 +76,10 @@ class SignUp : Fragment(),ViewItf.SignUpItf,GetDataViewClientItf {
         Log.d("DataUser",user[0].toString())
 
         //Start Activity Route when Success
-        val intent = Intent(context, RouteActivity::class.java)
+        val intent = Intent(activity, RouteActivity::class.java)
+        intent.putExtra("DataUser",user[0])
         startActivity(intent)
-        activity?.finish()
+        activity!!.finish()
     }
 
 

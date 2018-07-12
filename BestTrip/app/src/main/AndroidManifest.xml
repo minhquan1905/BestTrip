@@ -26,7 +26,7 @@
         </activity>
         <activity android:name=".getsetdata.view.Home"></activity>
         <activity android:name=".login.view.MainActivity"></activity>
-        <activity android:name=".login.view.test"></activity>
+
 
         <uses-library
             android:name="com.google.android.maps"

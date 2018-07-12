@@ -29,16 +29,16 @@ public class ListTaxi extends AppCompatActivity {
 
         setUpListView();
 
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i2 = new Intent(ListTaxi.this, test.class);
-                startActivity(i2);
-                overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
-                finish();
-            }
-        });
+//        button = findViewById(R.id.button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i2 = new Intent(ListTaxi.this, test.class);
+//                startActivity(i2);
+//                overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
+//                finish();
+//            }
+//        });
 
 
         

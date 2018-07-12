@@ -30,6 +30,7 @@ import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.example.minhquan.besttrip.login.view.MainActivity
+import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.example.minhquan.besttrip.model.ResultAddress
 import com.google.android.gms.location.*
 

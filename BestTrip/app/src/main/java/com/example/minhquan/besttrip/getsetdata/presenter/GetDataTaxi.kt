@@ -43,8 +43,7 @@ class GetDataTaxi(val view :Home) {
         return Vip(getCompanyX(data.child("SaiGon")),getCompanyX(data.child("Savico")),getCompanyX(data.child("Star")))
     }
     fun getTaxiX(data: DataSnapshot) : Taxi{
-        return Taxi(data.children.map { it -> getSeater4X(it) },data.children.map { it -> getSeater7X(it) },
-                data.children.map { it -> getVipX(it) })
+        return Taxi(getSeater4X(data.child("Seater4")),getSeater7X(data.child("Seater7")), getVipX(data.child("Vip")))
     }
 
 }

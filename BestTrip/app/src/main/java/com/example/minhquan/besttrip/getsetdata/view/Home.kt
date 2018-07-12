@@ -33,7 +33,7 @@ class Home : AppCompatActivity(),GetDataViewTaxiItf {
     }*/
 
     override fun showDataTaxi(ob: Taxi) {
-        tvNameTaxi.text = ob.listseater4[0].grab.listUser[0].phone
+        tvNameTaxi.text = ob.seater4.grab.listUser[0].phone
     }
 
 
