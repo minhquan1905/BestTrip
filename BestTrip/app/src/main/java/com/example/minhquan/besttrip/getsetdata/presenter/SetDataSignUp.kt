@@ -9,7 +9,7 @@ class SetDataSignUp() {
         val database = FirebaseDatabase.getInstance().reference
 
         val user = User(edtEmail.text.toString(),null,null,edtFullName.text.toString(),
-                edtPassWord.text.toString(),edtPhoneNumber.text.toString(),null)
+                edtPassWord.text.toString(),edtPhoneNumber.text.toString(),"http://perritoshc.mx/media/k2/items/cache/e37cb185c8f2dc5dd52ce2fc045570ec_M.jpg")
         database.child("Client").child(edtFullName.text.toString()).setValue(user)
     }
 }

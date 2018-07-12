@@ -149,7 +149,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
     override fun showDataClient(ob: Client){
         // ShowData Client
         val user = GetDataLogin(this).filterEmail(ob, this.emailUser)
-        Log.d("DataUser",user[0]?.toString())
+        Log.d("DataUser",user[0].toString())
 
         val intent = Intent(activity, RouteActivity::class.java)
         intent.putExtra("DataUser",user[0])
