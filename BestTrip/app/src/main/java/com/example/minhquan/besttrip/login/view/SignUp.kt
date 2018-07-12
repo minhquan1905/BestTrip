@@ -14,13 +14,13 @@ import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.model.datafirebase.Client
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataSignUp
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataSignUp
-import com.example.minhquan.besttrip.getsetdata.view.GetDataViewItf
+import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
 import com.example.minhquan.besttrip.login.presenter.SignUpPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 
-class SignUp : Fragment(),ViewItf.SignUpItf,GetDataViewItf {
+class SignUp : Fragment(),ViewItf.SignUpItf,GetDataViewClientItf {
     var emailUser : String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
