@@ -33,7 +33,7 @@ class Home : AppCompatActivity(),GetDataViewTaxiItf {
         super.onResume()
         //Getdata Taxi from FireBase
         val database = FirebaseDatabase.getInstance().reference
-        GetDataTaxi(this).getDataTaxi(database.child("Taxi"))
+        //GetDataTaxi(this).getDataTaxi(database.child("Taxi"))
     }
 
     override fun showDataTaxi(ob: Taxi) {
