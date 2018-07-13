@@ -78,8 +78,8 @@ class SplashScreen : AppCompatActivity(),GetDataViewClientItf {
         val user = GetDataSplashScrean(this).filterEmail(ob, this.emailUser)
         Log.d("DataUser",user[0].toString())
 
-        val i = Intent(this@SplashScreen, Home::class.java)
-        intent.putExtra("DataUser",user[0])
+        val i = Intent(this@SplashScreen, RouteActivity::class.java)
+        i.putExtra("DataUser",user[0])
         startActivity(i)
         this@SplashScreen.finish()
     }
