@@ -33,6 +33,9 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.example.minhquan.besttrip.login.view.MainActivity
 import com.example.minhquan.besttrip.model.ResultAddress
+import com.example.minhquan.besttrip.utils.decodePoly
+import com.example.minhquan.besttrip.utils.downBox
+import com.example.minhquan.besttrip.utils.upBox
 import com.google.android.gms.location.*
 
 import kotlinx.android.synthetic.main.nav_header.view.*
@@ -60,6 +63,7 @@ class RouteActivity :
     private lateinit var locationRequest : LocationRequest
     private lateinit var presenter: RouteContract.Presenter
     private lateinit var resultRoute: ResultRoute
+    private var pos = false
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,6 +129,11 @@ class RouteActivity :
             edit_origin.setText("")
             edit_destination.setText("")
             map.clear()
+            Log.d("Pos value 3",pos.toString())
+            if (!pos) {
+                drawerLayout.upBox(this)
+                pos = true
+            }
         }
 
         btnFind.setOnClickListener {
@@ -135,8 +144,13 @@ class RouteActivity :
                 Toast.makeText(this, "Origin location can not be empty", Toast.LENGTH_SHORT).show()
             else if (destination == "")
                 Toast.makeText(this, "Destination location can not be empty", Toast.LENGTH_SHORT).show()
-            else if (origin != "" && destination != "")
+            else if (origin != "" && destination != "") {
                 presenter.startGetRoute(origin, destination)
+                if (pos) {
+                    drawerLayout.downBox(this)
+                    pos = false
+                }
+            }
         }
 
     }
@@ -203,7 +217,10 @@ class RouteActivity :
 
             edit_origin.setText(resultRoute.routes!![0].legs!![0].startAddress)
             edit_destination.setText(resultRoute.routes!![0].legs!![0].endAddress)
-            drawRoute(map, decodePoly(resultRoute.routes!![0].overviewPolyline!!.points!!))
+            //drawRoute(map, decodePoly(resultRoute.routes!![0].overviewPolyline!!.points!!))
+
+            drawRoute(map, resultRoute.routes!![0].overviewPolyline!!.points!!.decodePoly())
+
 
         }
         else
@@ -230,15 +247,16 @@ class RouteActivity :
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         MY_PERMISSIONS_REQUEST_LOCATION)
 
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(this,
-                                    Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        //Location Permission already granted
-                        fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper())
-                        map.isMyLocationEnabled = true
-                    }
+                Log.d("Permission access","First time")
+                if (ContextCompat.checkSelfPermission(this,
+                                Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //Location Permission already granted
+                    Log.d("Permission access","Start get current location")
+                    fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper())
+                    map.isMyLocationEnabled = true
                 }
+
 
             }
         } else {

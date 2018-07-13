@@ -29,11 +29,12 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimaryDark"
             android:elevation="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/mapView"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside">
 
         </android.support.v7.widget.Toolbar>
 
@@ -197,7 +198,7 @@
                     android:id="@+id/img_find"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_car"
+                    android:src="@drawable/ic_search_white"
                     android:translationZ="2dp"
                     app:layout_constraintBottom_toBottomOf="@id/btnFind"
                     app:layout_constraintEnd_toStartOf="@id/label_find"
@@ -248,11 +249,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_call_white"
+            android:visibility="visible"
+            android:backgroundTint="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            tools:targetApi="lollipop" />
+
 
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.DrawerLayout>
-
-
-
-

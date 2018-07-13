@@ -19,17 +19,6 @@ interface GoogleApiService {
     fun getAddress(@Query("latlng") latlng: String)
             : Observable<ResultAddress>
 
-
-    @GET("/maps/api/{type}/json")
-    fun getRoute_(@Path("type") type: String,
-                  @Query("origin") origin: String,
-                  @Query("destination") destination: String)
-            : Observable<ResultRoute>
-    fun getAddress_(@Path("type") type: String,
-                    @Query("latlng") latlng: String)
-            : Observable<ResultAddress>
-
-
     companion object {
         const val BASE_URL: String = "https://maps.googleapis.com"
     }
