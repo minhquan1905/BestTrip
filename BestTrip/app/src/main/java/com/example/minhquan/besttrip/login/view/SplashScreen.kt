@@ -10,13 +10,9 @@ import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_splashscreen.*
 
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
-import com.example.minhquan.besttrip.getsetdata.presenter.GetDataSplashScrean
+import com.example.minhquan.besttrip.getsetdata.presenter.GetDataSplashScreen
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
-import com.example.minhquan.besttrip.getsetdata.view.GetDataViewTaxiItf
-import com.example.minhquan.besttrip.getsetdata.view.Home
 import com.example.minhquan.besttrip.model.datafirebase.Client
-import com.example.minhquan.besttrip.model.datafirebase.Taxi
 import com.example.minhquan.besttrip.route.RouteActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -62,7 +58,7 @@ class SplashScreen : AppCompatActivity(),GetDataViewClientItf {
                 emailUser = currentUser.email.toString()
                 //getDataClient from Firebase
                 val database = FirebaseDatabase.getInstance().reference
-                GetDataSplashScrean(this).getDataClient(database.child("Client"))
+                GetDataSplashScreen(this).getDataClient(database.child("Client"))
                 //------------------------> fun showDataClient
             }else{
                 val i = Intent(this@SplashScreen, MainActivity::class.java)
@@ -75,7 +71,7 @@ class SplashScreen : AppCompatActivity(),GetDataViewClientItf {
 
     }
     override fun showDataClient(ob: Client) {
-        val user = GetDataSplashScrean(this).filterEmail(ob, this.emailUser)
+        val user = GetDataSplashScreen(this).filterEmail(ob, this.emailUser)
         Log.d("DataUser",user[0].toString())
 
         val i = Intent(this@SplashScreen, RouteActivity::class.java)

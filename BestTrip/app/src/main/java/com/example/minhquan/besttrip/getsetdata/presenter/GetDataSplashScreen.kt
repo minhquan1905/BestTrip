@@ -6,7 +6,7 @@ import com.example.minhquan.besttrip.login.view.Login
 import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.google.firebase.database.*
 
-class GetDataSplashScrean(val view : SplashScreen) {
+class GetDataSplashScreen(val view : SplashScreen) {
     //fun getvalue Client
     fun getDataClient(database : DatabaseReference){
         database.addValueEventListener(object : ValueEventListener {
