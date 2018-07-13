@@ -185,8 +185,6 @@ class RouteActivity :
                             center(latLng )
                             radius(RADIUS_LARGE)
                             strokeWidth(STROKE_WIDTH)
-                            strokeColor(R.color.colorPrimary)
-                            fillColor(R.color.colorPrimary)
                         })
 
 
@@ -358,8 +356,6 @@ class RouteActivity :
                     center(lstLatLngRoute.first())
                     radius(RADIUS_SMALL)
                     strokeWidth(STROKE_WIDTH)
-                    strokeColor(R.color.colorPrimary)
-                    fillColor(R.color.colorPrimary)
                 })
 
         googleMap.addMarker(MarkerOptions().apply{
