@@ -126,7 +126,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         val user = GetDataLogin(this).filterEmail(ob, this.emailUser)
         Log.d("DataUser",user[0].toString())
 
-        val intent = Intent(activity, Home::class.java)
+        val intent = Intent(activity, RouteActivity::class.java)
         intent.putExtra("DataUser",user[0])
         startActivity(intent)
         activity?.finish()

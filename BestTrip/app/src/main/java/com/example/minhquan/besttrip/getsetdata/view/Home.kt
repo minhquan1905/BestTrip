@@ -18,22 +18,26 @@ class Home : AppCompatActivity(),GetDataViewTaxiItf {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         // Get Data User
-        /*var intent = intent
+        /*val intent = intent
         val user : User? = intent.getSerializableExtra("DataUser") as User
         tvNameTaxi.text = user.toString()*/
-        val intent = intent
-        val user : User? = intent.getSerializableExtra("DataUser") as User
+        // Creater History
+        btnNewHistory.setOnClickListener {
+
+        }
+
+
     }
 
-    /*override fun onResume() {
+    override fun onResume() {
         super.onResume()
         //Getdata Taxi from FireBase
         val database = FirebaseDatabase.getInstance().reference
         GetDataTaxi(this).getDataTaxi(database.child("Taxi"))
-    }*/
+    }
 
     override fun showDataTaxi(ob: Taxi) {
-        tvNameTaxi.text = ob.seater4.grab.listUser[0].phone
+        tvNameTaxi.text = ob.seater4.listCompany[1].listUser[1].toString()
     }
 
 

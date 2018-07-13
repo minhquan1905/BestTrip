@@ -3,9 +3,10 @@ package com.example.minhquan.besttrip.getsetdata.presenter
 import android.util.Log
 import com.example.minhquan.besttrip.model.datafirebase.*
 import com.example.minhquan.besttrip.login.view.Login
+import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.google.firebase.database.*
 
-class GetDataLogin(val view : Login) {
+class GetDataSplashScrean(val view : SplashScreen) {
     //fun getvalue Client
     fun getDataClient(database : DatabaseReference){
         database.addValueEventListener(object : ValueEventListener {
@@ -44,9 +45,5 @@ class GetDataLogin(val view : Login) {
     fun filterEmail(ob : Client, emailUser : String?): List<User>{
         return ob.listUser.filter { it.email == emailUser }
     }
-
-//    fun getSeater4X(data: DataSnapshot) : Seater{
-//        return Seater(getCompanyX(data.child()))
-//    }
 
 }
