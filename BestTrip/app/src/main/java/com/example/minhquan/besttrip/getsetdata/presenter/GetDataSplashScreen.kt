@@ -3,9 +3,10 @@ package com.example.minhquan.besttrip.getsetdata.presenter
 import android.util.Log
 import com.example.minhquan.besttrip.model.datafirebase.*
 import com.example.minhquan.besttrip.login.view.Login
+import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.google.firebase.database.*
 
-class GetDataLogin(val view : Login) {
+class GetDataSplashScreen(val view : SplashScreen) {
     //fun getvalue Client
     fun getDataClient(database : DatabaseReference){
         database.addValueEventListener(object : ValueEventListener {
@@ -22,8 +23,7 @@ class GetDataLogin(val view : Login) {
     }
 
     fun getTripX(data: DataSnapshot): Trip {
-        return Trip(data.child("start").value.toString(),
-                data.child("long").value.toString(),
+        return Trip(data.child("start").value.toString(), data.child("long").value.toString(),
                 data.child("end").value.toString(), data.child("usertaxi").value.toString())
     }
     fun getHistoryX(data: DataSnapshot) : History{

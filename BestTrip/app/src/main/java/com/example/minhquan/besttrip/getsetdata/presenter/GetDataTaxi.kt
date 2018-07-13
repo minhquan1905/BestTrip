@@ -13,7 +13,7 @@ class GetDataTaxi(val view :Home) {
         data.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(dtSnap: DataSnapshot) {
                 val ob = getTaxiX(dtSnap)
-                Log.e("ob",ob.toString())
+                Log.e("ob",ob.seater4.toString())
                 view.showDataTaxi(ob)
             }
 
@@ -29,21 +29,13 @@ class GetDataTaxi(val view :Home) {
                 data.child("price").value.toString())
     }
     fun getCompanyX(data: DataSnapshot) : Company{
-        return Company(data.children.map { it -> getUserTaxiX(it) })
+        return Company(data.key.toString(), data.children.map { it -> getUserTaxiX(it) })
     }
-    fun getSeater4X(data: DataSnapshot) : Seater4{
-        return Seater4(getCompanyX(data.child("Grab")),getCompanyX(data.child("MaiLinh")),getCompanyX(data.child("PhuongTrang")),
-                getCompanyX(data.child("SaiGon")),getCompanyX(data.child("Vina")),getCompanyX(data.child("Future")),getCompanyX(data.child("Savico")))
-    }
-    fun getSeater7X(data: DataSnapshot): Seater7{
-        return Seater7(getCompanyX(data.child("Grab")), getCompanyX(data.child("MaiLinh")),
-                getCompanyX(data.child("PhuongTrang")), getCompanyX(data.child("Star")))
-    }
-    fun getVipX(data: DataSnapshot) : Vip{
-        return Vip(getCompanyX(data.child("SaiGon")),getCompanyX(data.child("Savico")),getCompanyX(data.child("Star")))
+    fun getSeaterX(data: DataSnapshot) : Seater{
+        return Seater(data.children.map { it -> getCompanyX(it) })
     }
     fun getTaxiX(data: DataSnapshot) : Taxi{
-        return Taxi(getSeater4X(data.child("Seater4")),getSeater7X(data.child("Seater7")), getVipX(data.child("Vip")))
+        return Taxi(getSeaterX(data.child("Seater4")),getSeaterX(data.child("Seater7")), getSeaterX(data.child("Vip")))
     }
 
 }

@@ -25,8 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".getsetdata.view.Home" />
-        <activity android:name=".login.view.MainActivity" />
+        <activity android:name=".getsetdata.view.Home">
+
+        </activity>
+        <activity android:name=".login.view.MainActivity"></activity>
+
 
         <uses-library
             android:name="com.google.android.maps"

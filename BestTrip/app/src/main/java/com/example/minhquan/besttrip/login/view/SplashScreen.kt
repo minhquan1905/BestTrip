@@ -5,17 +5,23 @@ import android.graphics.PixelFormat
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_splashscreen.*
 
 import com.example.minhquan.besttrip.R
+import com.example.minhquan.besttrip.getsetdata.presenter.GetDataSplashScreen
+import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
+import com.example.minhquan.besttrip.model.datafirebase.Client
 import com.example.minhquan.besttrip.route.RouteActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreen : AppCompatActivity(),GetDataViewClientItf {
 
     private var mAuth: FirebaseAuth? = null
     private lateinit var splashTread: Thread
+    var emailUser : String = ""
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -49,9 +55,11 @@ class SplashScreen : AppCompatActivity() {
             mAuth= FirebaseAuth.getInstance()
             var currentUser = mAuth!!.currentUser
             if (currentUser != null){
-                val i = Intent(this@SplashScreen, RouteActivity::class.java)
-                startActivity(i)
-                this@SplashScreen.finish()
+                emailUser = currentUser.email.toString()
+                //getDataClient from Firebase
+                val database = FirebaseDatabase.getInstance().reference
+                GetDataSplashScreen(this).getDataClient(database.child("Client"))
+                //------------------------> fun showDataClient
             }else{
                 val i = Intent(this@SplashScreen, MainActivity::class.java)
                 startActivity(i)
@@ -61,6 +69,15 @@ class SplashScreen : AppCompatActivity() {
 
         }, 3000)
 
+    }
+    override fun showDataClient(ob: Client) {
+        val user = GetDataSplashScreen(this).filterEmail(ob, this.emailUser)
+        Log.d("DataUser",user[0].toString())
+
+        val i = Intent(this@SplashScreen, RouteActivity::class.java)
+        i.putExtra("DataUser",user[0])
+        startActivity(i)
+        this@SplashScreen.finish()
     }
 
 }
