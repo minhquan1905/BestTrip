@@ -29,7 +29,7 @@ class GetDataTaxi(val view :Home) {
                 data.child("price").value.toString())
     }
     fun getCompanyX(data: DataSnapshot) : Company{
-        return Company(data.children.map { it -> getUserTaxiX(it) })
+        return Company(data.key.toString(), data.children.map { it -> getUserTaxiX(it) })
     }
     fun getSeaterX(data: DataSnapshot) : Seater{
         return Seater(data.children.map { it -> getCompanyX(it) })
