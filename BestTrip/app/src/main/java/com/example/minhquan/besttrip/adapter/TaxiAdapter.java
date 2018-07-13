@@ -7,16 +7,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.minhquan.besttrip.R;
+import com.example.minhquan.besttrip.model.datafirebase.Company;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.ViewHolder> {
-
+    List<Company> data;
+    Company company;
     Context context;
 
     public TaxiAdapter(Context context) {
+
+        data = new ArrayList<>();
         this.context = context;
     }
+
+    public void setData(List<Company> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -27,21 +42,34 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        company = data.get(position);
         //holder.imageAutoMakers.setImageResource(R.drawable.grab_logo);
+        holder.tvAutoMakers.setText(company.getName());
+        holder.tvPrice.setText(company.getListUser().get(0).getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return data.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imageAutoMakers;
+        TextView tvAutoMakers, tvPrice;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imageAutoMakers = itemView.findViewById(R.id.imgAutoMakers);
+            tvAutoMakers = itemView.findViewById(R.id.tvAutoMakers);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, "Clicked!!!", Toast.LENGTH_SHORT).show();
         }
     }
 }

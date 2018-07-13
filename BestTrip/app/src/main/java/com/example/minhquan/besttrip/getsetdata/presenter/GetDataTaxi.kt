@@ -3,12 +3,13 @@ package com.example.minhquan.besttrip.getsetdata.presenter
 import android.util.Log
 import com.example.minhquan.besttrip.model.datafirebase.*
 import com.example.minhquan.besttrip.getsetdata.view.Home
+import com.example.minhquan.besttrip.login.view.ListTaxi
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-class GetDataTaxi(val view :Home) {
+class GetDataTaxi(val view :ListTaxi) {
     fun getDataTaxi(data : DatabaseReference) {
         data.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(dtSnap: DataSnapshot) {

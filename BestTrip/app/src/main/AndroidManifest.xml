@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".getsetdata.view.Home">
+        <activity android:name=".login.view.ListTaxi">
 
         </activity>
         <activity android:name=".login.view.MainActivity"></activity>

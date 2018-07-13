@@ -30,9 +30,12 @@ import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.example.minhquan.besttrip.detail.DetailActivity
+import com.example.minhquan.besttrip.login.view.ListTaxi
 import com.example.minhquan.besttrip.login.view.MainActivity
 import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.example.minhquan.besttrip.model.ResultAddress
+import com.example.minhquan.besttrip.model.datafirebase.Taxi
+import com.example.minhquan.besttrip.model.datafirebase.User
 import com.example.minhquan.besttrip.utils.decodePoly
 import com.example.minhquan.besttrip.utils.downBox
 import com.example.minhquan.besttrip.utils.expandFab
@@ -76,6 +79,9 @@ class RouteActivity :
         mapFragment?.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        val i = intent
+        val user : User = i.getSerializableExtra("DataUser") as User
 
         setupView()
 
@@ -221,11 +227,12 @@ class RouteActivity :
             drawerLayout.expandFab(this)
 
             btnFab.setOnClickListener{
-                val intent = Intent(this, DetailActivity::class.java)
+                val intent = Intent(this, ListTaxi::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable("selected_route",resultRoute)
                 intent.putExtra("routeBundle",bundle)
                 startActivity(intent)
+                overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
             }
 
         }
