@@ -2,10 +2,20 @@
     <string name="app_name">BestTrip</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="login">Login</string>
+    <string name="login">Log In</string>
     <string name="signup">Sign Up</string>
     <string name="home">Home</string>
     <string name="logout">Log out</string>
+
+
+    <!--Sign up Log in-->
+    <string name="full_name">Full name</string>
+    <string name="email">Email address</string>
+    <string name="phone_number">Phone number</string>
+    <string name="password">Password</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="log_in">LOG IN</string>
+
 
     <!--Input Location-->
     <string name="edit_origin">Origin Location</string>
@@ -18,5 +28,8 @@
     <!--String for hint-->
     <string name="edit_hint_origin"><font size="15">Origin Location</font></string>
     <string name="edit_hint_destination"><font size="15">Destination Location</font></string>
+
+    <string name="welcome">Best Trip</string>
+    <string name="description">Best trip with us</string>
 
 </resources>

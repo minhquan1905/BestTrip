@@ -25,9 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".getsetdata.view.Home"></activity>
-        <activity android:name=".login.view.MainActivity"></activity>
-
+        <activity android:name=".getsetdata.view.Home" />
+        <activity android:name=".login.view.MainActivity" />
 
         <uses-library
             android:name="com.google.android.maps"
@@ -37,8 +36,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".route.RouteActivity"></activity>
-
+        <activity android:name=".route.RouteActivity" />
+        <activity android:name=".detail.DetailActivity"></activity>
     </application>
 
 </manifest>

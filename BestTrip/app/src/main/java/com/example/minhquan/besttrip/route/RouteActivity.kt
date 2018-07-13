@@ -29,11 +29,13 @@ import android.os.Build
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import com.example.minhquan.besttrip.detail.DetailActivity
 import com.example.minhquan.besttrip.login.view.MainActivity
 import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.example.minhquan.besttrip.model.ResultAddress
 import com.example.minhquan.besttrip.utils.decodePoly
 import com.example.minhquan.besttrip.utils.downBox
+import com.example.minhquan.besttrip.utils.expandFab
 import com.example.minhquan.besttrip.utils.upBox
 import com.google.android.gms.location.*
 
@@ -129,10 +131,7 @@ class RouteActivity :
             edit_destination.setText("")
             map.clear()
             Log.d("Pos value 3",pos.toString())
-            if (!pos) {
-                drawerLayout.upBox(this)
-                pos = true
-            }
+
         }
 
         btnFind.setOnClickListener {
@@ -145,10 +144,10 @@ class RouteActivity :
                 Toast.makeText(this, "Destination location can not be empty", Toast.LENGTH_SHORT).show()
             else if (origin != "" && destination != "") {
                 presenter.startGetRoute(origin, destination)
-                if (pos) {
-                    drawerLayout.downBox(this)
-                    pos = false
-                }
+
+                drawerLayout.upBox(this)
+
+
             }
         }
 
@@ -216,10 +215,18 @@ class RouteActivity :
 
             edit_origin.setText(resultRoute.routes!![0].legs!![0].startAddress)
             edit_destination.setText(resultRoute.routes!![0].legs!![0].endAddress)
-            //drawRoute(map, decodePoly(resultRoute.routes!![0].overviewPolyline!!.points!!))
 
             drawRoute(map, resultRoute.routes!![0].overviewPolyline!!.points!!.decodePoly())
 
+            drawerLayout.expandFab(this)
+
+            btnFab.setOnClickListener{
+                val intent = Intent(this, DetailActivity::class.java)
+                val bundle = Bundle()
+                bundle.putParcelable("selected_route",resultRoute)
+                intent.putExtra("routeBundle",bundle)
+                startActivity(intent)
+            }
 
         }
         else
@@ -247,23 +254,23 @@ class RouteActivity :
                         MY_PERMISSIONS_REQUEST_LOCATION)
 
                 Log.d("Permission access","First time")
-                if (ContextCompat.checkSelfPermission(this,
-                                Manifest.permission.ACCESS_FINE_LOCATION)
-                        == PackageManager.PERMISSION_GRANTED) {
-                    //Location Permission already granted
-                    Log.d("Permission access","Start get current location")
-                    fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper())
-                    map.isMyLocationEnabled = true
-                }
-
-
             }
         } else {
             // Permission has already been granted
             Log.d("Permission access","Permission has already been granted")
 
         }
+    }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            //Location Permission already granted
+            fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper())
+            map.isMyLocationEnabled = true
+        }
     }
 
     /**
@@ -352,52 +359,8 @@ class RouteActivity :
             position(lstLatLngRoute.last())
             title("Destination")
             icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-        }).run {
-            // add a tag to the marker
-            tag = "Destination"
-        }
+        })
 
-    }
-
-    /**
-     * Method to decode polyline points
-     * Courtesy : https://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
-     */
-    private fun decodePoly(encoded: String): List<LatLng> {
-        val poly = ArrayList<LatLng>()
-        var index = 0
-        val len = encoded.length
-        var lat = 0
-        var lng = 0
-
-        while (index < len) {
-            var b: Int
-            var shift = 0
-            var result = 0
-            do {
-                b = encoded[index++].toInt() - 63
-                result = result or (b and 0x1f shl shift)
-                shift += 5
-            } while (b >= 0x20)
-            val dlat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lat += dlat
-
-            shift = 0
-            result = 0
-            do {
-                b = encoded[index++].toInt() - 63
-                result = result or (b and 0x1f shl shift)
-                shift += 5
-            } while (b >= 0x20)
-            val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lng += dlng
-
-            val p = LatLng(lat.toDouble() / 1E5,
-                    lng.toDouble() / 1E5)
-            poly.add(p)
-        }
-
-        return poly
     }
 
     override fun showProgress(isShow: Boolean) {

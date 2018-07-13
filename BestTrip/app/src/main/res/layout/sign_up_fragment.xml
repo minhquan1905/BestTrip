@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,7 +26,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_username"
+            android:drawableStart="@drawable/ic_username"
             android:drawablePadding="16dp"
             android:gravity="center|start"
             android:hint="Full name"
@@ -38,16 +37,15 @@
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
-        <TextView
-
+        <View
             android:id="@+id/textView4"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            style="@style/Divider"
             android:layout_height="1dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/gray"
             app:layout_constraintBottom_toTopOf="@+id/edtEmailSignUp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -66,7 +64,7 @@
             android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="16dp"
             android:gravity="center|start"
-            android:hint="Email address"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,16 +73,15 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintVertical_bias="0.468" />
 
-        <TextView
-
+        <View
             android:id="@+id/textView5"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            style="@style/Divider"
             android:layout_height="1dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/gray"
             app:layout_constraintBottom_toTopOf="@+id/edtPassWordSignUp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,10 +96,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_phone_number"
+            android:drawableStart="@drawable/ic_phone_number"
             android:drawablePadding="16dp"
             android:gravity="center|start"
-            android:hint="Phone number"
+            android:hint="@string/phone_number"
             android:inputType="phone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -131,16 +128,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <TextView
+        <View
             android:id="@+id/textView7"
+            style="@style/Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/gray"
-            android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/edtPhoneNumberSignUp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -156,11 +152,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/custom_button_login_signup"
         android:onClick="SignUp"
-        android:text="SignUp"
+        style="@style/RoundedButtonSignUp"
+        android:text="@string/sign_up"
         android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorPrimaryDarkMore"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

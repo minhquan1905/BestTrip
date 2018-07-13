@@ -8,7 +8,9 @@ import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_route.view.*
 
-
+/**
+ * Animation for moving search box to avoid being overlapped by keyboard
+ */
 fun View.upBox(context: Context) {
 
     Log.d("Animation", "Trigger up")
@@ -17,12 +19,28 @@ fun View.upBox(context: Context) {
     objectAnimator.start()
 }
 
+/**
+ * Animation for moving search box to return origin location
+ */
 fun View.downBox(context: Context) {
     Log.d("Animation", "Trigger down")
     val objectAnimator = ObjectAnimator.ofFloat(search_box, "y", search_box.y, -convertDpToPixel(100f,context))
     objectAnimator.duration = 650
     objectAnimator.start()
 }
+
+/**
+ * Animation for focusing on fab button: Expand button
+ */
+fun View.expandFab(context: Context) {
+    if (btnFab.visibility == View.INVISIBLE)
+        btnFab.visibility = View.VISIBLE
+
+}
+
+
+
+
 
 
 private fun View.centerX(): Int {
