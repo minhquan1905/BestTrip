@@ -21,7 +21,7 @@ class Home : AppCompatActivity(),GetDataViewTaxiItf {
         /*var intent = intent
         val user : User? = intent.getSerializableExtra("DataUser") as User
         tvNameTaxi.text = user.toString()*/
-        var intent = intent
+        val intent = intent
         val user : User? = intent.getSerializableExtra("DataUser") as User
     }
 
