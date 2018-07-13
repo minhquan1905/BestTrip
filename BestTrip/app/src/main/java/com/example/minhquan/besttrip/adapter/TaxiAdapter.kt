@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 import com.example.minhquan.besttrip.R
+import com.example.minhquan.besttrip.model.Detail
+import com.example.minhquan.besttrip.model.ResultRoute
 import com.example.minhquan.besttrip.model.datafirebase.Company
 
 import java.util.ArrayList
 
-class TaxiAdapter(internal var context: Context) : RecyclerView.Adapter<TaxiAdapter.ViewHolder>() {
+class TaxiAdapter(internal var context: Context, var route: ResultRoute) : RecyclerView.Adapter<TaxiAdapter.ViewHolder>() {
     internal var data: List<Company>
     private lateinit var company: Company
 
@@ -36,9 +40,11 @@ class TaxiAdapter(internal var context: Context) : RecyclerView.Adapter<TaxiAdap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         company = data[position]
-        //holder.imageAutoMakers.setImageResource(R.drawable.grab_logo);
+
+        Glide.with(context).load(company.listUser[0].image).apply(RequestOptions.circleCropTransform()).into(holder.imageAutoMakers)
         holder.tvAutoMakers.text = company.name
-        holder.tvPrice.text = company.listUser[0].price
+        holder.tvPrice.text = (company.listUser[0].price.toInt()* route.routes!![0].legs!![0].distance!!.value!! / 1000).toString() + " đ"
+
     }
 
     override fun getItemCount(): Int {
@@ -58,6 +64,8 @@ class TaxiAdapter(internal var context: Context) : RecyclerView.Adapter<TaxiAdap
 
         override fun onClick(v: View) {
             Toast.makeText(context, "Clicked!!!", Toast.LENGTH_SHORT).show()
+            //val detail = Detail()
+
         }
     }
 }

@@ -41,10 +41,9 @@ class ListTaxi : AppCompatActivity(), GetDataViewTaxiItf {
         rvPremium = findViewById(R.id.recPremium)
 
 
-        val bundle = intent.getBundleExtra("routeBundle")
-        route  = bundle.getParcelable("selected_route") as ResultRoute
 
-        Log.d("Return route", route.status)
+
+        //Log.d("Return route", route.status)
 
         //Getdata Taxi from FireBase
         val database = FirebaseDatabase.getInstance().reference
@@ -55,9 +54,14 @@ class ListTaxi : AppCompatActivity(), GetDataViewTaxiItf {
     }
 
     private fun setUpListView() {
-        taxiAdapter4 = TaxiAdapter(this@ListTaxi)
-        taxiAdapter7 = TaxiAdapter(this@ListTaxi)
-        taxiAdapterVip = TaxiAdapter(this@ListTaxi)
+
+        val bundle = intent.getBundleExtra("routeBundle")
+        route  = bundle.getParcelable("selected_route") as ResultRoute
+
+
+        taxiAdapter4 = TaxiAdapter(this@ListTaxi, route)
+        taxiAdapter7 = TaxiAdapter(this@ListTaxi, route)
+        taxiAdapterVip = TaxiAdapter(this@ListTaxi, route)
         rv4Seater.setHasFixedSize(true)
         rv7Seater.setHasFixedSize(true)
         rvPremium.setHasFixedSize(true)
