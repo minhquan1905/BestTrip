@@ -21,13 +21,10 @@ class GetDataLogin(val view : Login) {
         })
     }
 
-    fun getLocationX(data : DataSnapshot): Location {
-        return Location(data.child("X").value.toString(),data.child("Y").value.toString())
-    }
     fun getTripX(data: DataSnapshot): Trip {
-        return Trip(getLocationX(data.child("start")),
+        return Trip(data.child("start").value.toString(),
                 data.child("long").value.toString(),
-                getLocationX(data.child("end")), data.child("usertaxi").value.toString())
+                data.child("end").value.toString(), data.child("usertaxi").value.toString())
     }
     fun getHistoryX(data: DataSnapshot) : History{
         return History(data.children.map { it -> getTripX(it) })
@@ -44,9 +41,5 @@ class GetDataLogin(val view : Login) {
     fun filterEmail(ob : Client, emailUser : String?): List<User>{
         return ob.listUser.filter { it.email == emailUser }
     }
-
-//    fun getSeater4X(data: DataSnapshot) : Seater{
-//        return Seater(getCompanyX(data.child()))
-//    }
 
 }

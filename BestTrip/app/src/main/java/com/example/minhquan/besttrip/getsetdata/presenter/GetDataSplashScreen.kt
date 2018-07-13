@@ -22,13 +22,9 @@ class GetDataSplashScreen(val view : SplashScreen) {
         })
     }
 
-    fun getLocationX(data : DataSnapshot): Location {
-        return Location(data.child("X").value.toString(),data.child("Y").value.toString())
-    }
     fun getTripX(data: DataSnapshot): Trip {
-        return Trip(getLocationX(data.child("start")),
-                data.child("long").value.toString(),
-                getLocationX(data.child("end")), data.child("usertaxi").value.toString())
+        return Trip(data.child("start").value.toString(), data.child("long").value.toString(),
+                data.child("end").value.toString(), data.child("usertaxi").value.toString())
     }
     fun getHistoryX(data: DataSnapshot) : History{
         return History(data.children.map { it -> getTripX(it) })
