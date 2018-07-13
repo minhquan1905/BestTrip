@@ -5,8 +5,8 @@
     <color name="colorPrimaryDark">#11999e</color>
     <color name="colorPrimaryDarkMore">#40514e</color>
     <color name="colorAccent">#75c2f6</color>
-    <color name="colorWhite">#e4eddb</color>
+    <color name="colorWhite">#FFF</color>
     <color name="tab_background_selected">#e4f9f5</color>
     <color name="yellow">#ffe981</color>
-    <color name="gray">#c5c2c2</color>
+    <color name="gray">#e7e4e4</color>
 </resources>

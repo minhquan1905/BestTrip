@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -26,12 +25,12 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_route.*
-import android.location.LocationManager
 import android.os.Build
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.example.minhquan.besttrip.login.view.MainActivity
+import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.example.minhquan.besttrip.model.ResultAddress
 import com.example.minhquan.besttrip.utils.decodePoly
 import com.example.minhquan.besttrip.utils.downBox

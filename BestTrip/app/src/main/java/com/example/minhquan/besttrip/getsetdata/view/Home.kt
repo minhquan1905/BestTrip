@@ -21,17 +21,19 @@ class Home : AppCompatActivity(),GetDataViewTaxiItf {
         /*var intent = intent
         val user : User? = intent.getSerializableExtra("DataUser") as User
         tvNameTaxi.text = user.toString()*/
+        var intent = intent
+        val user : User? = intent.getSerializableExtra("DataUser") as User
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         //Getdata Taxi from FireBase
         val database = FirebaseDatabase.getInstance().reference
         GetDataTaxi(this).getDataTaxi(database.child("Taxi"))
-    }
+    }*/
 
     override fun showDataTaxi(ob: Taxi) {
-        tvNameTaxi.text = ob.listseater4[0].grab.listUser[0].phone
+        tvNameTaxi.text = ob.seater4.grab.listUser[0].phone
     }
 
 

@@ -15,6 +15,7 @@ import com.example.minhquan.besttrip.model.datafirebase.Client
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataLoginGoogle
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
+import com.example.minhquan.besttrip.getsetdata.view.Home
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
@@ -76,19 +77,6 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = mAuth!!.currentUser
-        updateUI(currentUser)
-
-        if (currentUser != null){
-            //Getdata Client from FireBase
-            emailUser = currentUser.email!!
-            val database = FirebaseDatabase.getInstance().reference
-            GetDataLogin(this).getDataClient(database.child("Client"))
-        }
-    }
     // Login with Google button
     private fun signIn() {
         val intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
@@ -112,7 +100,6 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
             } else {
                 // failed -> update UI
-                updateUI(null)
                 Toast.makeText(context, "SignIn: failed!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -121,17 +108,6 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
     override fun onConnectionFailed(p0: ConnectionResult) {
         Log.e(TAG, "onConnectionFailed(): $p0")
         Toast.makeText(context, "Google Play Services error.", Toast.LENGTH_SHORT).show()
-    }
-
-
-    override fun updateUI(user: FirebaseUser?) {
-//        if (user != null) {
-//            tvStatus.text = "Google User email: " + user.email
-//            tvDetail.text =  "FB User ID: " + user.uid
-//        } else {
-//            tvStatus.text = "Signed Out"
-//            tvDetail.text = null
-//        }
     }
 
     override fun showLoginSuccess() {
@@ -148,7 +124,7 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
     override fun showDataClient(ob: Client){
         // ShowData Client
         val user = GetDataLogin(this).filterEmail(ob, this.emailUser)
-        Log.d("DataUser",user[0]?.toString())
+        Log.d("DataUser",user[0].toString())
 
         val intent = Intent(activity, RouteActivity::class.java)
         intent.putExtra("DataUser",user[0])

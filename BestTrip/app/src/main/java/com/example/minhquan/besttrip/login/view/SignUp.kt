@@ -73,12 +73,13 @@ class SignUp : Fragment(),ViewItf.SignUpItf,GetDataViewClientItf {
     override fun showDataClient(ob: Client) {//......B3
         // ShowData Client
         val user = GetDataSignUp(this).filterEmail(ob, this.emailUser)
-        Log.d("DataUser",user[0]?.toString())
+        Log.d("DataUser",user[0].toString())
 
         //Start Activity Route when Success
-        val intent = Intent(context, RouteActivity::class.java)
+        val intent = Intent(activity, RouteActivity::class.java)
+        intent.putExtra("DataUser",user[0])
         startActivity(intent)
-        activity?.finish()
+        activity!!.finish()
     }
 
 
