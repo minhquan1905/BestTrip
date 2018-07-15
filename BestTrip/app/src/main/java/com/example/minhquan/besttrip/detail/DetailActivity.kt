@@ -20,4 +20,10 @@ class DetailActivity : AppCompatActivity() {
         Log.d("Return route", route.price)
 
     }
+
+    private fun setupView() {
+
+    }
+
+
 }
