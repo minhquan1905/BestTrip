@@ -17,8 +17,6 @@
 
     </android.support.design.widget.NavigationView>
 
-
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -109,7 +107,7 @@
                     android:maxLines="2"
                     android:background="@android:color/transparent"
                     android:hint="@string/edit_hint_origin"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/normal"
                     app:layout_constraintBottom_toTopOf="@id/divider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideline_left"
@@ -135,7 +133,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="36dp"
                     android:hint="@string/edit_hint_destination"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/normal"
                     android:maxLines="2"
                     android:background="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -145,7 +143,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btnCancel"
-                    style="@style/RoundedButton"
+                    style="@style/RoundedButtonSignUp"
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -173,10 +171,11 @@
                     android:layout_height="20dp"
                     android:id="@+id/label_cancel"
                     android:text="@string/btn_cancel"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimaryDarkMore"
                     android:translationZ="2dp"
                     android:layout_marginStart="8dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/normal"
                     app:layout_constraintBottom_toBottomOf="@id/btnCancel"
                     app:layout_constraintEnd_toEndOf="@id/btnCancel"
                     app:layout_constraintStart_toEndOf="@id/img_cancel"
@@ -217,6 +216,7 @@
                     android:translationZ="2dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center"
+                    android:textSize="@dimen/normal"
                     app:layout_constraintBottom_toBottomOf="@id/btnFind"
                     app:layout_constraintEnd_toEndOf="@id/btnFind"
                     app:layout_constraintStart_toEndOf="@id/img_find"
@@ -254,14 +254,15 @@
             android:id="@+id/btnFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_call_white"
-            android:visibility="invisible"
-            app:backgroundTint="@color/colorPrimaryDark"
+            android:visibility="visible"
+            app:backgroundTint="@color/colorPrimaryDarkMore"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintHorizontal_bias="1.0"
             tools:targetApi="lollipop" />
 
 

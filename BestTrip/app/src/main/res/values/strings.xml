@@ -9,10 +9,10 @@
 
 
     <!--Sign up Log in-->
-    <string name="full_name">Full name</string>
-    <string name="email">Email address</string>
-    <string name="phone_number">Phone number</string>
-    <string name="password">Password</string>
+    <string name="full_name"><font size="16">Full name</font></string>
+    <string name="email"><font size="16">Email address</font></string>
+    <string name="phone_number"><font size="16">Phone number</font></string>
+    <string name="password"><font size="16">Password</font></string>
     <string name="sign_up">SIGN UP</string>
     <string name="log_in">LOG IN</string>
 
@@ -26,8 +26,9 @@
     <string name="btn_find">FIND</string>
 
     <!--String for hint-->
-    <string name="edit_hint_origin"><font size="15">Origin Location</font></string>
-    <string name="edit_hint_destination"><font size="15">Destination Location</font></string>
+    <string name="edit_hint_origin"><font size="16">Origin Location</font></string>
+    <string name="edit_hint_destination"><font size="16">Destination Location</font></string>
+
 
     <string name="welcome">Best Trip</string>
     <string name="description">Best trip with us</string>

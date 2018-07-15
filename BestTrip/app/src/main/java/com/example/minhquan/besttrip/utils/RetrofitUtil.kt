@@ -28,14 +28,6 @@ class RetrofitUtil {
             return retrofit.create(GoogleApiService::class.java)
         }
 
-
-        /**
-         * Add more function builder here to implement API
-         */
-        fun somebuilder(){}
-
-
-
         /**
          * Builder for set up a OkHttpClient
          * @return A OkHttpClient instance have added ending query with Google Map API key

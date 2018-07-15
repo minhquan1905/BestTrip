@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -29,7 +30,6 @@ import android.os.Build
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import com.example.minhquan.besttrip.detail.DetailActivity
 import com.example.minhquan.besttrip.login.view.ListTaxi
 import com.example.minhquan.besttrip.login.view.MainActivity
 import com.example.minhquan.besttrip.login.view.SplashScreen
@@ -37,9 +37,7 @@ import com.example.minhquan.besttrip.model.ResultAddress
 import com.example.minhquan.besttrip.model.datafirebase.Taxi
 import com.example.minhquan.besttrip.model.datafirebase.User
 import com.example.minhquan.besttrip.utils.decodePoly
-import com.example.minhquan.besttrip.utils.downBox
 import com.example.minhquan.besttrip.utils.expandFab
-import com.example.minhquan.besttrip.utils.upBox
 import com.google.android.gms.location.*
 
 import kotlinx.android.synthetic.main.nav_header.view.*
@@ -60,14 +58,14 @@ class RouteActivity :
     private val BOTTOM = 325
     private val RADIUS_SMALL = 5.0
     private val RADIUS_LARGE = 100.0
-    private val STROKE_WIDTH = 7f
+    private val STROKE_WIDTH = 1f
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest : LocationRequest
     private lateinit var presenter: RouteContract.Presenter
     private lateinit var resultRoute: ResultRoute
-    private var pos = false
+
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,8 +78,7 @@ class RouteActivity :
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        val i = intent
-        val user : User = i.getSerializableExtra("DataUser") as User
+        val user = intent.getSerializableExtra("DataUser") as User
 
         setupView()
 
@@ -136,7 +133,6 @@ class RouteActivity :
             edit_origin.setText("")
             edit_destination.setText("")
             map.clear()
-            Log.d("Pos value 3",pos.toString())
 
         }
 
@@ -150,9 +146,6 @@ class RouteActivity :
                 Toast.makeText(this, "Destination location can not be empty", Toast.LENGTH_SHORT).show()
             else if (origin != "" && destination != "") {
                 presenter.startGetRoute(origin, destination)
-
-                drawerLayout.upBox(this)
-
 
             }
         }
@@ -185,6 +178,7 @@ class RouteActivity :
                             center(latLng )
                             radius(RADIUS_LARGE)
                             strokeWidth(STROKE_WIDTH)
+                            fillColor(Color.BLUE)
                         })
 
 
@@ -230,7 +224,7 @@ class RouteActivity :
                 bundle.putParcelable("selected_route",resultRoute)
                 intent.putExtra("routeBundle",bundle)
                 startActivity(intent)
-                overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
+                overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up )
             }
 
         }
@@ -258,7 +252,6 @@ class RouteActivity :
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         MY_PERMISSIONS_REQUEST_LOCATION)
 
-                Log.d("Permission access","First time")
             }
         } else {
             // Permission has already been granted
@@ -337,7 +330,7 @@ class RouteActivity :
             lineBuilder.apply {
                 add(latLngPoint)
                 width(INITIAL_STROKE_WIDTH_PX.toFloat())
-                color(R.color.colorPrimary)
+                color(Color.BLUE)
                 geodesic(true)
             }
 
@@ -356,6 +349,7 @@ class RouteActivity :
                     center(lstLatLngRoute.first())
                     radius(RADIUS_SMALL)
                     strokeWidth(STROKE_WIDTH)
+                    fillColor(Color.BLUE)
                 })
 
         googleMap.addMarker(MarkerOptions().apply{

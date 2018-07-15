@@ -13,11 +13,15 @@
         <item name="android:background">@drawable/button_bg_rounded_corners</item>
     </style>
 
-    <!--Rounded button in RouteFragment-->
+    <!--Rounded button in Sign in-->
     <style name="RoundedButtonSignUp" parent="Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/button_empty_rounded_corners</item>
     </style>
 
+    <!--Rounded button in Sign in-->
+    <style name="RoundedButtonEdit" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/button_trans_rounded_corners</item>
+    </style>
 
     <!--Divider-->
     <style name="Divider">
