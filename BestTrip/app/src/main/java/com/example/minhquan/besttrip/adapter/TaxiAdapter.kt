@@ -73,8 +73,6 @@ class TaxiAdapter(internal var context: Context, var route: ResultRoute) : Recyc
             bundle.putParcelable("DetailRoute",detail)
             intent.putExtra("routeBundle",bundle)
             context.startActivity(intent)
-            //val detail = Detail()
-
         }
     }
 }
