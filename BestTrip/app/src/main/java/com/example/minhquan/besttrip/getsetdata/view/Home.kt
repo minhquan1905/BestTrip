@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataTaxi
+import com.example.minhquan.besttrip.getsetdata.presenter.SetDataHistory
 import com.example.minhquan.besttrip.model.datafirebase.Taxi
 import com.example.minhquan.besttrip.model.datafirebase.User
 import com.google.firebase.database.FirebaseDatabase
@@ -25,6 +26,7 @@ class Home : AppCompatActivity(),GetDataViewTaxiItf {
 
         // Creater History
         btnNewHistory.setOnClickListener {
+            SetDataHistory("user1").createNewHistory("KTX khu A","5km","KTX khu B", "Nguyen Van X")
         }
 
     }
