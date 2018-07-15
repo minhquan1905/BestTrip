@@ -29,6 +29,9 @@ import android.os.Build
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.minhquan.besttrip.detail.DetailActivity
 import com.example.minhquan.besttrip.login.view.ListTaxi
 import com.example.minhquan.besttrip.login.view.MainActivity
 import com.example.minhquan.besttrip.model.ResultAddress
@@ -54,8 +57,6 @@ class RouteActivity :
         OnMapReadyCallback,
         RouteContract.View {
 
-    private var name = "Ginn"
-
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest : LocationRequest
@@ -79,6 +80,8 @@ class RouteActivity :
         setupView()
 
     }
+
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
@@ -262,7 +265,12 @@ class RouteActivity :
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         MY_PERMISSIONS_REQUEST_LOCATION)
 
+                Log.d("Permission access","First time")
             }
+        } else {
+            // Permission has already been granted
+            Log.d("Permission access","Permission has already been granted")
+
         }
     }
 
@@ -317,8 +325,16 @@ class RouteActivity :
     private fun setUpViewHeader() {
         val headerView = navigationView.inflateHeaderView(R.layout.nav_header)
 
-        headerView.imgProfile.setImageResource(R.drawable.ic_car)
-        headerView.tvUsername.text = name
+        val i = intent
+        val user : User = i.getSerializableExtra("DataUser") as User
+
+        Glide.with(this).load(user.image)
+                .apply(RequestOptions.circleCropTransform())
+                .into(headerView.imgProfile);
+        //headerView.imgProfile.setImageResource(R.drawable.ic_car)
+        headerView.tvUsername.text = user.name
+        headerView.tvEmail.text = user.email
+
 
     }
 
