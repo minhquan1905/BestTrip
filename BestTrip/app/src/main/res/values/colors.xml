@@ -9,4 +9,6 @@
     <color name="tab_background_selected">#e4f9f5</color>
     <color name="yellow">#ffe981</color>
     <color name="gray">#e7e4e4</color>
+
+    <color name="colorCircleMap">#3330e3ca</color>
 </resources>

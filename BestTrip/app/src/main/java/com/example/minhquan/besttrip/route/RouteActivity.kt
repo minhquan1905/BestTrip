@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -32,16 +31,22 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.example.minhquan.besttrip.login.view.ListTaxi
 import com.example.minhquan.besttrip.login.view.MainActivity
-import com.example.minhquan.besttrip.login.view.SplashScreen
 import com.example.minhquan.besttrip.model.ResultAddress
-import com.example.minhquan.besttrip.model.datafirebase.Taxi
 import com.example.minhquan.besttrip.model.datafirebase.User
 import com.example.minhquan.besttrip.utils.decodePoly
-import com.example.minhquan.besttrip.utils.expandFab
+import com.github.ybq.android.spinkit.style.Circle
 import com.google.android.gms.location.*
-
 import kotlinx.android.synthetic.main.nav_header.view.*
 
+
+private const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+private const val INITIAL_STROKE_WIDTH_PX = 5
+private const val LEFT = 25
+private const val RIGHT = 25
+private const val TOP = 25
+private const val BOTTOM = 325
+private const val RADIUS_LARGE = 100.0
+private const val STROKE_WIDTH = 1f
 
 class RouteActivity :
         AppCompatActivity(),
@@ -49,16 +54,7 @@ class RouteActivity :
         OnMapReadyCallback,
         RouteContract.View {
 
-
-    private val MY_PERMISSIONS_REQUEST_LOCATION = 99
-    private val INITIAL_STROKE_WIDTH_PX = 5
-    private val LEFT = 0
-    private val RIGHT = 25
-    private val TOP = 25
-    private val BOTTOM = 325
-    private val RADIUS_SMALL = 5.0
-    private val RADIUS_LARGE = 100.0
-    private val STROKE_WIDTH = 1f
+    private var name = "Ginn"
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -101,6 +97,8 @@ class RouteActivity :
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap?) {
 
+        showProgress(false)
+
         map = googleMap ?: return
 
         map.setPadding(LEFT, TOP, RIGHT, BOTTOM)
@@ -132,6 +130,8 @@ class RouteActivity :
         btnCancel.setOnClickListener {
             edit_origin.setText("")
             edit_destination.setText("")
+            if (bgRipple.visibility == View.VISIBLE)
+                bgRipple.visibility = View.GONE
             map.clear()
 
         }
@@ -178,9 +178,9 @@ class RouteActivity :
                             center(latLng )
                             radius(RADIUS_LARGE)
                             strokeWidth(STROKE_WIDTH)
-                            fillColor(Color.BLUE)
+                            fillColor(ContextCompat.getColor(baseContext,R.color.colorCircleMap))
+                            strokeColor(ContextCompat.getColor(baseContext,R.color.colorCircleMap))
                         })
-
 
             }
         }
@@ -216,13 +216,23 @@ class RouteActivity :
 
             drawRoute(map, resultRoute.routes!![0].overviewPolyline!!.points!!.decodePoly())
 
-            drawerLayout.expandFab(this)
+            //drawerLayout.expandFab(this)
 
-            btnFab.setOnClickListener{
+            if (bgRipple.visibility == View.GONE)
+                bgRipple.visibility = View.VISIBLE
+
+            bgRipple.startRippleAnimation()
+
+            imgCenter.setOnClickListener{
                 val intent = Intent(this, ListTaxi::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable("selected_route",resultRoute)
                 intent.putExtra("routeBundle",bundle)
+
+                if (bgRipple.visibility == View.VISIBLE) {
+                    bgRipple.stopRippleAnimation()
+                }
+
                 startActivity(intent)
                 overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up )
             }
@@ -253,10 +263,6 @@ class RouteActivity :
                         MY_PERMISSIONS_REQUEST_LOCATION)
 
             }
-        } else {
-            // Permission has already been granted
-            Log.d("Permission access","Permission has already been granted")
-
         }
     }
 
@@ -275,6 +281,12 @@ class RouteActivity :
      * Function for setup listener for action buttons, actionbar
      */
     private fun setupView() {
+
+        val circle = Circle()
+        circle.color = ContextCompat.getColor(baseContext, R.color.colorPrimary)
+        loader.indeterminateDrawable = circle
+
+        showProgress(true)
 
         setSupportActionBar(toolBar)
         supportActionBar?.title = ""
@@ -306,7 +318,7 @@ class RouteActivity :
         val headerView = navigationView.inflateHeaderView(R.layout.nav_header)
 
         headerView.imgProfile.setImageResource(R.drawable.ic_car)
-        headerView.tvUsername.text = "Ginn"
+        headerView.tvUsername.text = name
 
     }
 
@@ -330,7 +342,7 @@ class RouteActivity :
             lineBuilder.apply {
                 add(latLngPoint)
                 width(INITIAL_STROKE_WIDTH_PX.toFloat())
-                color(Color.BLUE)
+                color(ContextCompat.getColor(baseContext, R.color.colorPrimary))
                 geodesic(true)
             }
 
@@ -343,14 +355,6 @@ class RouteActivity :
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding))
         googleMap.addPolyline(lineBuilder)
-
-        map.addCircle(
-                CircleOptions().apply {
-                    center(lstLatLngRoute.first())
-                    radius(RADIUS_SMALL)
-                    strokeWidth(STROKE_WIDTH)
-                    fillColor(Color.BLUE)
-                })
 
         googleMap.addMarker(MarkerOptions().apply{
             position(lstLatLngRoute.last())

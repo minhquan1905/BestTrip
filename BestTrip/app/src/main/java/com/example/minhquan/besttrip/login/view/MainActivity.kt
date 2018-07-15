@@ -6,6 +6,10 @@ import android.support.v4.view.ViewPager
 import android.support.design.widget.TabLayout
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.adapter.ViewPagerAdapter
+import android.graphics.Typeface
+import android.widget.TextView
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +25,12 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
 
+        val appName = findViewById<TextView>(R.id.textAppName)
+
+
+        val customFont = Typeface.createFromAsset(assets, "fonts/Pacifico.ttf")
+
+        appName.typeface = customFont
 
     }
 

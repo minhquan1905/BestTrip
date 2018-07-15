@@ -11,7 +11,6 @@ import io.reactivex.schedulers.Schedulers
 class RoutePresenter(private var view: RouteContract.View) : RouteContract.Presenter {
 
 
-
     //Instance of interface created for Retrofit API calls
     private val service by lazy {
         //Initializing Retrofit stuff

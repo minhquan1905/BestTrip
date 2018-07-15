@@ -1,13 +1,12 @@
 package com.example.minhquan.besttrip.route
 
-import com.example.minhquan.besttrip.base.BaseContract
 import com.example.minhquan.besttrip.model.ResultAddress
 import com.example.minhquan.besttrip.model.ResultRoute
 
 
 interface RouteContract {
 
-    interface View: BaseContract.View {
+    interface View {
 
         fun showProgress(isShow: Boolean)
 
@@ -20,7 +19,7 @@ interface RouteContract {
         fun onGetAddressSuccess(result: ResultAddress)
     }
 
-    interface Presenter: BaseContract.Presenter<RouteContract.View> {
+    interface Presenter {
 
         fun startGetRoute(org: String, des: String)
 
