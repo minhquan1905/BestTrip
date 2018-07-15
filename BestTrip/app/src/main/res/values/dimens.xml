@@ -3,8 +3,6 @@
 
     <dimen name="normal_text_size">16sp</dimen>
     <dimen name="capital_text_size">20sp</dimen>
-    <dimen name="title_text_size">36sp</dimen>
-
-
+    <dimen name="title_text_size">42sp</dimen>
 
 </resources>

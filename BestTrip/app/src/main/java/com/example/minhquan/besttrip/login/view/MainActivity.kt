@@ -26,12 +26,12 @@ class MainActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
 
         val appName = findViewById<TextView>(R.id.textAppName)
+        val description = findViewById<TextView>(R.id.textDescription)
 
-
-        val customFont = Typeface.createFromAsset(assets, "fonts/Pacifico.ttf")
+        val customFont = Typeface.createFromAsset(assets, "fonts/Painter.ttf")
 
         appName.typeface = customFont
-
+        description.typeface = customFont
     }
 
 
