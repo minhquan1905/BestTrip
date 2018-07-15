@@ -20,14 +20,13 @@ import com.google.firebase.database.FirebaseDatabase
 class SplashScreen : AppCompatActivity(),GetDataViewClientItf {
 
     private var mAuth: FirebaseAuth? = null
-    private lateinit var splashTread: Thread
     var emailUser : String = ""
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        val window = window
-        window.setFormat(PixelFormat.RGBA_8888)
-    }
+//    override fun onAttachedToWindow() {
+//        super.onAttachedToWindow()
+//        val window = window
+//        window.setFormat(PixelFormat.RGBA_8888)
+//    }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
