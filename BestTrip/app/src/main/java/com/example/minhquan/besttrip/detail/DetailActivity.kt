@@ -13,6 +13,9 @@ import com.example.minhquan.besttrip.model.DetailRoute
 import com.example.minhquan.besttrip.model.firebasedata.Taxi
 import com.example.minhquan.besttrip.model.firebasedata.User
 import kotlinx.android.synthetic.main.activity_detail.*
+import android.content.Intent
+import android.net.Uri
+
 
 class DetailActivity : AppCompatActivity(){
 
@@ -52,6 +55,10 @@ class DetailActivity : AppCompatActivity(){
                     route.company.listUser[0].name!!)
 
             Toast.makeText(this, "Thanks for using our service!", Toast.LENGTH_SHORT).show()
+
+            val callIntent = Intent(Intent.ACTION_DIAL)
+            callIntent.data = Uri.parse("tel:${route.company.listUser[0].phone}")
+            startActivity(callIntent)
         }
     }
 

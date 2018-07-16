@@ -19,8 +19,6 @@ import com.example.minhquan.besttrip.model.DetailRoute
 import com.example.minhquan.besttrip.model.mapdata.ResultRoute
 import com.example.minhquan.besttrip.model.firebasedata.Company
 import com.example.minhquan.besttrip.model.firebasedata.User
-import com.example.minhquan.besttrip.model.ResultRoute
-import com.example.minhquan.besttrip.model.datafirebase.Company
 import java.text.DecimalFormat
 
 import java.util.ArrayList
