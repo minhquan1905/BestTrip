@@ -8,24 +8,28 @@ Time spent: **64** hours spent in total
 The following **required** functionality is completed:
 
 * [x] Register/Login/Skip. 
-* [x] View  user’s  location  on  Google  Map. 
-* [x] User can compose a new tweet
-* [x] View  destination  on  Google  Map.  
-* [x] Search  taxi  on  Google  Map.   
-* [x] View  information  taxi  companies.   
-* [x] View  destination  on  Google  Map.  
+* [x] View user’s location on Google Map. 
+* [x] User can request a search direction on Google Map.
+* [x] View  destination  on  Google  Map.     
 * [x] View  all  category  and  price  of  taxis.   
-* [x] Compare  information  between  companies.  
-* [x] View  way  on  Google  Map  
-* [x] Take  fast  call  to  Taxi  Company.
+* [x] Compare  information  between  companies. 
+* [x] View detail a book.
+* [x] Confirm a book.
+* [x] Take  fast  call  to  Taxi  diver.
+
+The following **additional** features are implemented:
+
+* [x] Add some animations to welcome screen, a ripple fab button.
+* [x] Add more fields on Home page.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://imgur.com/aw3rTBv.gif' title='Twitter Client' width='' alt='Video Walkthrough' />
-
-Link to watch: https://i.imgur.com/aw3rTBv.gif
+<img src='https://i.imgur.com/tA8GBNq.gif' title='Sign in' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/CUYeRuT.gif' title='Sign in Google' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/SRCGhxH.gif' title='Sign up' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/2nzf2Ki.gif' title='Best Trip' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -33,8 +37,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 - [Glide](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) for more efficient image rendering.
 - [Retrofit networking library](http://guides.codepath.com/android/Consuming-APIs-with-Retrofit) Retrofit turns your HTTP API into a Java interface.
-- [Okhttp3](https://square.github.io/okhttp/3.x/okhttp/)
-
+- [Okhttp3](https://square.github.io/okhttp/3.x/okhttp/) An HTTP & HTTP/2 client for Android and Java applications
+- [Ripplebackground](https://github.com/skyfishjy/android-ripple-background) A beautiful ripple animation
+- [Android-SpinKit](https://github.com/ybq/Android-SpinKit) Android loading animations
 
 ## License
 
