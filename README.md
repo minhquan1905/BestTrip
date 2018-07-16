@@ -30,6 +30,7 @@ Here's a walkthrough of implemented user stories:
 <img src='https://i.imgur.com/CUYeRuT.gif' title='Sign in Google' width='' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/SRCGhxH.gif' title='Sign up' width='' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/2nzf2Ki.gif' title='Best Trip' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/bfpgptK.gif' title='Best Trip' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
