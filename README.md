@@ -24,6 +24,7 @@ The following **additional** features are implemented:
 * [x] Add register with Google mail
 * [x] Add some animations to Welcome screen, a ripple fab button.
 * [x] Add more fields on Home page.
+* [x] Using Parcelable to transfer and reducing Parcelable boilerplate code using Kotlin
 
 ## Video Walkthrough
 
@@ -40,11 +41,13 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Open-source libraries used
 
 - [Glide](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) for more efficient image rendering.
+- [RecyclerView](http://guides.codepath.com/android/Using-the-RecyclerView) as a replacement for the ListView and ArrayAdapter for all lists of tweets.
 - [Retrofit networking library](http://guides.codepath.com/android/Consuming-APIs-with-Retrofit) Retrofit turns your HTTP API into a Java interface.
-- [RxJava](https://github.com/ReactiveX/RxJava) Reactive Extensions for the JVM
-- [Okhttp3](https://square.github.io/okhttp/3.x/okhttp/) An HTTP & HTTP/2 client for Android and Java applications
-- [Ripplebackground](https://github.com/skyfishjy/android-ripple-background) A beautiful ripple animation
-- [Android-SpinKit](https://github.com/ybq/Android-SpinKit) Android loading animations
+- [RxJava](https://github.com/ReactiveX/RxJava) Reactive Extensions for the JVM.
+- [Okhttp3](https://square.github.io/okhttp/3.x/okhttp/) An HTTP & HTTP/2 client for Android and Java applications.
+- [Ripplebackground](https://github.com/skyfishjy/android-ripple-background) A beautiful ripple animation.
+- [Android-SpinKit](https://github.com/ybq/Android-SpinKit) Android loading animations.
+- [Pacelable](https://medium.com/@BladeCoder/reducing-parcelable-boilerplate-code-using-kotlin-741c3124a49a) Library to reduce Parcelable boilerplate code.
 
 ## License
 
