@@ -28,10 +28,11 @@ class MainActivity : AppCompatActivity() {
         val appName = findViewById<TextView>(R.id.textAppName)
         val description = findViewById<TextView>(R.id.textDescription)
 
-        val customFont = Typeface.createFromAsset(assets, "fonts/Painter.ttf")
+        val customFontTitle = Typeface.createFromAsset(assets, "fonts/KrinkesDecor.ttf")
+        val customFontDescription = Typeface.createFromAsset(assets, "fonts/KrinkesRegular.ttf")
 
-        appName.typeface = customFont
-        description.typeface = customFont
+        appName.typeface = customFontTitle
+        description.typeface = customFontDescription
     }
 
 

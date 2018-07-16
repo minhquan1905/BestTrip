@@ -1,7 +1,7 @@
 package com.example.minhquan.besttrip.api
 
-import com.example.minhquan.besttrip.model.ResultAddress
-import com.example.minhquan.besttrip.model.ResultRoute
+import com.example.minhquan.besttrip.model.mapdata.ResultAddress
+import com.example.minhquan.besttrip.model.mapdata.ResultRoute
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

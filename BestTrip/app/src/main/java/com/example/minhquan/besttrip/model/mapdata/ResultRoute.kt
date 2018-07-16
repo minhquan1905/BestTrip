@@ -1,4 +1,4 @@
-package com.example.minhquan.besttrip.model
+package com.example.minhquan.besttrip.model.mapdata
 
 import android.os.Parcel
 import com.example.minhquan.besttrip.utils.KParcelable

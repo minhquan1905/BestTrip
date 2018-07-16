@@ -14,7 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.model.ResultRoute
+import com.example.minhquan.besttrip.model.mapdata.ResultRoute
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -31,11 +31,10 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.minhquan.besttrip.detail.DetailActivity
 import com.example.minhquan.besttrip.login.view.ListTaxi
 import com.example.minhquan.besttrip.login.view.MainActivity
-import com.example.minhquan.besttrip.model.ResultAddress
-import com.example.minhquan.besttrip.model.datafirebase.User
+import com.example.minhquan.besttrip.model.mapdata.ResultAddress
+import com.example.minhquan.besttrip.model.firebasedata.User
 import com.example.minhquan.besttrip.utils.decodePoly
 import com.github.ybq.android.spinkit.style.Circle
 import com.google.android.gms.location.*
@@ -62,7 +61,7 @@ class RouteActivity :
     private lateinit var locationRequest : LocationRequest
     private lateinit var presenter: RouteContract.Presenter
     private lateinit var resultRoute: ResultRoute
-
+    private lateinit var user: User
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +74,7 @@ class RouteActivity :
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        val user = intent.getSerializableExtra("DataUser") as User
+        user = intent.getSerializableExtra("DataUser") as User
 
         setupView()
 
@@ -133,8 +132,10 @@ class RouteActivity :
         btnCancel.setOnClickListener {
             edit_origin.setText("")
             edit_destination.setText("")
-            if (bgRipple.visibility == View.VISIBLE)
+            if (bgRipple.visibility == View.VISIBLE) {
                 bgRipple.visibility = View.GONE
+                btnFab.visibility = View.GONE
+            }
             map.clear()
 
         }
@@ -221,16 +222,19 @@ class RouteActivity :
 
             //drawerLayout.expandFab(this)
 
-            if (bgRipple.visibility == View.GONE)
+            if (bgRipple.visibility == View.GONE) {
                 bgRipple.visibility = View.VISIBLE
+                btnFab.visibility = View.VISIBLE
+            }
 
             bgRipple.startRippleAnimation()
 
-            imgCenter.setOnClickListener{
+            btnFab.setOnClickListener{
                 val intent = Intent(this, ListTaxi::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable("selected_route",resultRoute)
                 intent.putExtra("routeBundle",bundle)
+                intent.putExtra("DataUser",user)
 
                 if (bgRipple.visibility == View.VISIBLE) {
                     bgRipple.stopRippleAnimation()

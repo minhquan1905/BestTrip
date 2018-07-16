@@ -1,7 +1,7 @@
 package com.example.minhquan.besttrip.getsetdata.presenter
 
 import android.widget.EditText
-import com.example.minhquan.besttrip.model.datafirebase.User
+import com.example.minhquan.besttrip.model.firebasedata.User
 import com.google.firebase.database.FirebaseDatabase
 
 class SetDataSignUp() {

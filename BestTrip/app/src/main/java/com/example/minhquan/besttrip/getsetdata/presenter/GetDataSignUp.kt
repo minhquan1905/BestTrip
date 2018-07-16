@@ -1,7 +1,7 @@
 package com.example.minhquan.besttrip.getsetdata.presenter
 
 import android.util.Log
-import com.example.minhquan.besttrip.model.datafirebase.*
+import com.example.minhquan.besttrip.model.firebasedata.*
 import com.example.minhquan.besttrip.login.view.SignUp
 import com.google.firebase.database.*
 

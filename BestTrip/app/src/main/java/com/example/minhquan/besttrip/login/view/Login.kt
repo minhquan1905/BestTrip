@@ -11,11 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.model.datafirebase.Client
+import com.example.minhquan.besttrip.model.firebasedata.Client
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataLogin
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataLoginGoogle
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
-import com.example.minhquan.besttrip.getsetdata.view.Home
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
@@ -24,7 +23,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.login_fragment.*
 

@@ -1,7 +1,7 @@
 package com.example.minhquan.besttrip.getsetdata.presenter
 
 import android.util.Log
-import com.example.minhquan.besttrip.model.datafirebase.*
+import com.example.minhquan.besttrip.model.firebasedata.*
 import com.example.minhquan.besttrip.login.view.Login
 import com.google.firebase.database.*
 
@@ -13,7 +13,9 @@ class GetDataLogin(val view : Login) {
                 val ob = getClientX(dtSnap)
 
                 Log.e("test user[0]",ob.listUser[0].email)
-                view.showDataClient(ob)
+
+                if (view.tag != null)
+                    view.showDataClient(ob)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.d("getDataClient",databaseError.toString())

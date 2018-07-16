@@ -1,7 +1,6 @@
 package com.example.minhquan.besttrip.login.view
 
 import android.content.Intent
-import android.graphics.PixelFormat
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
@@ -12,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_splashscreen.*
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataSplashScreen
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
-import com.example.minhquan.besttrip.model.datafirebase.Client
+import com.example.minhquan.besttrip.model.firebasedata.Client
 import com.example.minhquan.besttrip.route.RouteActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase

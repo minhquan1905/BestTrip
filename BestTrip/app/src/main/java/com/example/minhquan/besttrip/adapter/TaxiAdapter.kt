@@ -3,7 +3,6 @@ package com.example.minhquan.besttrip.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +16,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.detail.DetailActivity
 import com.example.minhquan.besttrip.model.DetailRoute
-import com.example.minhquan.besttrip.model.ResultRoute
-import com.example.minhquan.besttrip.model.datafirebase.Company
+import com.example.minhquan.besttrip.model.mapdata.ResultRoute
+import com.example.minhquan.besttrip.model.firebasedata.Company
+import com.example.minhquan.besttrip.model.firebasedata.User
 
 import java.util.ArrayList
 
-class TaxiAdapter(internal var context: Context, var route: ResultRoute) : RecyclerView.Adapter<TaxiAdapter.ViewHolder>() {
+class TaxiAdapter(internal var context: Context, var route: ResultRoute, var user: User) : RecyclerView.Adapter<TaxiAdapter.ViewHolder>() {
     internal var data: List<Company>
     private lateinit var company: Company
 
@@ -67,12 +67,13 @@ class TaxiAdapter(internal var context: Context, var route: ResultRoute) : Recyc
         }
 
         override fun onClick(v: View) {
-            Toast.makeText(context, "Clicked!!!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Clicked!!!", Toast.LENGTH_SHORT).show()
             val detail = DetailRoute(route.routes!![0], company, tvPrice.text.toString())
             val intent = Intent(context, DetailActivity::class.java)
             val bundle = Bundle()
             bundle.putParcelable("DetailRoute",detail)
             intent.putExtra("routeBundle",bundle)
+            intent.putExtra("DataUser",user)
             context.startActivity(intent)
         }
     }

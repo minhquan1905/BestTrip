@@ -1,9 +1,7 @@
 package com.example.minhquan.besttrip.getsetdata.presenter
 
 import android.util.Log
-import com.example.minhquan.besttrip.getsetdata.view.Home
-import com.example.minhquan.besttrip.model.datafirebase.History
-import com.example.minhquan.besttrip.model.datafirebase.Trip
+import com.example.minhquan.besttrip.model.firebasedata.Trip
 import com.google.firebase.database.FirebaseDatabase
 
 class SetDataHistory(val nameUser : String) {

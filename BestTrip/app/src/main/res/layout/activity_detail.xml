@@ -6,6 +6,215 @@
     android:layout_height="match_parent"
     tools:context=".detail.DetailActivity">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelinetop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelinecenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.125" />
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/grab_logo"
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/guidelinetop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/areaDistance"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:background="@drawable/img_circle_filled_light"
+        app:layout_constraintBottom_toTopOf="@+id/guidelinecenter"
+        app:layout_constraintEnd_toStartOf="@+id/areaMoney"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelinetop" >
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgDistance"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_route_filled"
+            app:layout_constraintBottom_toTopOf="@+id/label_distance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/label_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="10 km"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/normal_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgDistance" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/areaMoney"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:background="@drawable/img_circle"
+        app:layout_constraintBottom_toTopOf="@+id/guidelinecenter"
+        app:layout_constraintEnd_toStartOf="@+id/areaType"
+        app:layout_constraintStart_toEndOf="@id/areaDistance"
+        app:layout_constraintTop_toBottomOf="@id/guidelinetop" >
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgMoney"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_money_filled_dark"
+            app:layout_constraintBottom_toTopOf="@+id/label_money"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/label_money"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="200,000"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgMoney"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/areaType"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:background="@drawable/img_circle_filled"
+        app:layout_constraintBottom_toTopOf="@+id/guidelinecenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/areaMoney"
+        app:layout_constraintTop_toBottomOf="@id/guidelinetop" >
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgNumber"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_car"
+            app:layout_constraintBottom_toTopOf="@+id/label_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/label_number"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="78h123"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/normal_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgNumber" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgOrigin"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_home_filled"
+        app:layout_constraintBottom_toTopOf="@+id/imgDestination"
+        app:layout_constraintEnd_toStartOf="@id/label_origin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelinecenter"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/label_origin"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:text="32 au co, phuong 10, quan 11, tp hcm, vn"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/label_destination"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/guidelinecenter"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgDestination"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_destination_filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineleft"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgOrigin" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/label_destination"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="100 lac long quan, phuong 10, quan 11, tp hcm, vn"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/label_origin" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnCheckout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_background_gradient"
+        android:text="@string/check_out"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"/>
 
 
 </android.support.constraint.ConstraintLayout>

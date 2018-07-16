@@ -269,14 +269,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="1.0">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerInParent="true"
-                android:id="@+id/imgCenter"
-                android:src="@drawable/ic_call_white"
-                android:contentDescription="@string/btn_find"/>
+
         </com.skyfishjy.library.RippleBackground>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_call_white"
+            android:visibility="gone"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/bgRipple"
+            app:layout_constraintEnd_toEndOf="@+id/bgRipple"
+            app:layout_constraintStart_toStartOf="@+id/bgRipple"
+            app:layout_constraintTop_toTopOf="@+id/bgRipple"
+            tools:targetApi="lollipop" />
 
 
     </android.support.constraint.ConstraintLayout>

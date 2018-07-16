@@ -1,7 +1,7 @@
 package com.example.minhquan.besttrip.route
 
-import com.example.minhquan.besttrip.model.ResultAddress
-import com.example.minhquan.besttrip.model.ResultRoute
+import com.example.minhquan.besttrip.model.mapdata.ResultAddress
+import com.example.minhquan.besttrip.model.mapdata.ResultRoute
 
 
 interface RouteContract {

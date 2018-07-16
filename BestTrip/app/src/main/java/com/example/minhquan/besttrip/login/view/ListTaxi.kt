@@ -1,6 +1,5 @@
 package com.example.minhquan.besttrip.login.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -12,10 +11,10 @@ import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.adapter.TaxiAdapter
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataTaxi
 import com.example.minhquan.besttrip.getsetdata.view.GetDataViewTaxiItf
-import com.example.minhquan.besttrip.model.ResultRoute
-import com.example.minhquan.besttrip.model.datafirebase.Company
-import com.example.minhquan.besttrip.model.datafirebase.Taxi
-import com.example.minhquan.besttrip.route.RouteActivity
+import com.example.minhquan.besttrip.model.mapdata.ResultRoute
+import com.example.minhquan.besttrip.model.firebasedata.Company
+import com.example.minhquan.besttrip.model.firebasedata.Taxi
+import com.example.minhquan.besttrip.model.firebasedata.User
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_route.*
 import kotlinx.android.synthetic.main.list_taxi.*
@@ -30,7 +29,8 @@ class ListTaxi : AppCompatActivity(), GetDataViewTaxiItf {
     private lateinit var taxiAdapterVip: TaxiAdapter
 
 
-    lateinit var route: ResultRoute
+    private lateinit var route: ResultRoute
+    private lateinit var user: User
 
     internal var button: Button? = null
 
@@ -67,11 +67,11 @@ class ListTaxi : AppCompatActivity(), GetDataViewTaxiItf {
 
         val bundle = intent.getBundleExtra("routeBundle")
         route  = bundle.getParcelable("selected_route") as ResultRoute
+        user = intent.getSerializableExtra("DataUser") as User
 
-
-        taxiAdapter4 = TaxiAdapter(this@ListTaxi, route)
-        taxiAdapter7 = TaxiAdapter(this@ListTaxi, route)
-        taxiAdapterVip = TaxiAdapter(this@ListTaxi, route)
+        taxiAdapter4 = TaxiAdapter(this@ListTaxi, route, user)
+        taxiAdapter7 = TaxiAdapter(this@ListTaxi, route, user)
+        taxiAdapterVip = TaxiAdapter(this@ListTaxi, route, user)
         rv4Seater.setHasFixedSize(true)
         rv7Seater.setHasFixedSize(true)
         rvPremium.setHasFixedSize(true)

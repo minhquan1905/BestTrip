@@ -2,15 +2,11 @@ package com.example.minhquan.besttrip.getsetdata.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import com.example.minhquan.besttrip.R
-import com.example.minhquan.besttrip.getsetdata.presenter.GetDataTaxi
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataHistory
-import com.example.minhquan.besttrip.model.datafirebase.Taxi
-import com.example.minhquan.besttrip.model.datafirebase.User
+import com.example.minhquan.besttrip.model.firebasedata.Taxi
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.nav_header.*
 
 
 class Home : AppCompatActivity(),GetDataViewTaxiItf {

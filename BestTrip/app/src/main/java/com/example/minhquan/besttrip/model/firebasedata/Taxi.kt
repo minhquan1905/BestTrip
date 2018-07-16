@@ -1,7 +1,6 @@
-package com.example.minhquan.besttrip.model.datafirebase
+package com.example.minhquan.besttrip.model.firebasedata
 
 import android.os.Parcel
-import android.os.Parcelable
 import com.example.minhquan.besttrip.utils.KParcelable
 import com.example.minhquan.besttrip.utils.parcelableCreator
 
