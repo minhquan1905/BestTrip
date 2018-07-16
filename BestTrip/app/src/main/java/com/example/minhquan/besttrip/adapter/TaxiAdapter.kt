@@ -19,6 +19,7 @@ import com.example.minhquan.besttrip.detail.DetailActivity
 import com.example.minhquan.besttrip.model.DetailRoute
 import com.example.minhquan.besttrip.model.ResultRoute
 import com.example.minhquan.besttrip.model.datafirebase.Company
+import com.example.minhquan.besttrip.model.datafirebase.User
 
 import java.util.ArrayList
 
@@ -67,7 +68,7 @@ class TaxiAdapter(internal var context: Context, var route: ResultRoute) : Recyc
         }
 
         override fun onClick(v: View) {
-            Toast.makeText(context, "Clicked!!!", Toast.LENGTH_SHORT).show()
+
             val detail = DetailRoute(route.routes!![0], company, tvPrice.text.toString())
             val intent = Intent(context, DetailActivity::class.java)
             val bundle = Bundle()
