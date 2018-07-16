@@ -1,25 +1,28 @@
-﻿﻿# Project 4 -  Best trip
+﻿﻿# Project 4 -  **Best trip**
 
-**Best trip** is an android app that allows a user to book taxi using Google Map. 
-Time spent: **64** hours spent in total
+**Best trip** is an android app that allows a user to book taxi by using Google Map. 
+Time spent: **64** hours spent in total.
 
 ## User Stories
 
 The following **required** functionality is completed:
 
-* [x] Register/Login/Skip. 
+* [x] Register/Login/Skip/Logout. 
 * [x] View user’s location on Google Map. 
-* [x] User can request a search direction on Google Map.
-* [x] View  destination  on  Google  Map.     
-* [x] View  all  category  and  price  of  taxis.   
-* [x] Compare  information  between  companies. 
+* [x] User can request search direction on Google Map.
+* [x] View destination on Google Map.     
+* [x] View all categories and prices of taxis.   
+* [x] Compare information between companies. 
 * [x] View detail a book.
 * [x] Confirm a book.
-* [x] Take  fast  call  to  Taxi  diver.
+* [x] Take fast call to Taxi diver.
+* [x] View Home page with user detail infomation.
+* [x] Data of user and taxi infomation on server are powered by Google Firebase.
 
 The following **additional** features are implemented:
 
-* [x] Add some animations to welcome screen, a ripple fab button.
+* [x] Add register with Google mail
+* [x] Add some animations to Welcome screen, a ripple fab button.
 * [x] Add more fields on Home page.
 
 ## Video Walkthrough
@@ -38,6 +41,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 - [Glide](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) for more efficient image rendering.
 - [Retrofit networking library](http://guides.codepath.com/android/Consuming-APIs-with-Retrofit) Retrofit turns your HTTP API into a Java interface.
+- [RxJava](https://github.com/ReactiveX/RxJava) Reactive Extensions for the JVM
 - [Okhttp3](https://square.github.io/okhttp/3.x/okhttp/) An HTTP & HTTP/2 client for Android and Java applications
 - [Ripplebackground](https://github.com/skyfishjy/android-ripple-background) A beautiful ripple animation
 - [Android-SpinKit](https://github.com/ybq/Android-SpinKit) Android loading animations
