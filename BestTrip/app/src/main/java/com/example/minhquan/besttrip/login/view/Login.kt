@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewCompat
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,12 +20,14 @@ import com.example.minhquan.besttrip.getsetdata.view.GetDataViewClientItf
 import com.example.minhquan.besttrip.login.presenter.LoginGooglePresenter
 import com.example.minhquan.besttrip.login.presenter.LoginPresenter
 import com.example.minhquan.besttrip.route.RouteActivity
+import com.github.ybq.android.spinkit.style.Circle
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_route.*
 import kotlinx.android.synthetic.main.login_fragment.*
 
 class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, GetDataViewClientItf {
@@ -42,7 +46,6 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // btnLogin.setOnClickListener {  LoginPresenter(this).login(edtEmailLogin,edtPasswordLogin) }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -54,10 +57,16 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build()
 
-
         mAuth= FirebaseAuth.getInstance()
+
         // Google button
-        sign_in_button.setOnClickListener{ signIn() }
+        sign_in_button.setOnClickListener{
+            val circle = Circle()
+            circle.color = ContextCompat.getColor(context!!, R.color.colorPrimary)
+            progressBar.indeterminateDrawable = circle
+            progressBar.visibility = View.VISIBLE
+            progressBar.bringToFront()
+            signIn() }
 
         // check null when login
         btnLogin.setOnClickListener {
@@ -80,21 +89,27 @@ class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedList
         val intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
         startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent();
         if (requestCode == REQUEST_CODE_SIGN_IN) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             if (result.isSuccess) {
+
                 // successful -> authenticate with Firebase
                 val account = result.signInAccount
                 LoginGooglePresenter(this).fireBaseAuthWithGoogle(account,mAuth)
+
                 //Create User
                 SetDataLoginGoogle().createNewUserFireBase(account?.email.toString(),account?.displayName.toString())
+
                 //Getdata Client from FireBase
                 emailUser = account?.email.toString()
                 val database = FirebaseDatabase.getInstance().reference
                 GetDataLogin(this).getDataClient(database.child("Client"))
+                progressBar.visibility = View.GONE
 
             } else {
                 // failed -> update UI

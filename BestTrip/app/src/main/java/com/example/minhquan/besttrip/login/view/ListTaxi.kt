@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.widget.Button
-
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.adapter.TaxiAdapter
 import com.example.minhquan.besttrip.getsetdata.presenter.GetDataTaxi
@@ -32,8 +29,6 @@ class ListTaxi : AppCompatActivity(), GetDataViewTaxiItf {
     private lateinit var route: ResultRoute
     private lateinit var user: User
 
-    internal var button: Button? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_taxi)
@@ -46,20 +41,16 @@ class ListTaxi : AppCompatActivity(), GetDataViewTaxiItf {
         setSupportActionBar(toolBar)
         supportActionBar?.title = "Choose your taxi"
 
-        //Log.d("Return route", route.status)
-
         //Getdata Taxi from FireBase
         val database = FirebaseDatabase.getInstance().reference
         GetDataTaxi(this).getDataTaxi(database.child("Taxi"))
 
         setUpListView()
 
-        imgButtonDown.setOnClickListener(View.OnClickListener {
-//            val intent = Intent(this, RouteActivity::class.java)
-//            startActivity(intent)
+        imgButtonDown.setOnClickListener {
             finish()
-            overridePendingTransition( R.anim.slide_in_down, R.anim.slide_out_down );
-        })
+            overridePendingTransition( R.anim.slide_in_down, R.anim.slide_out_down )
+        }
 
     }
 
