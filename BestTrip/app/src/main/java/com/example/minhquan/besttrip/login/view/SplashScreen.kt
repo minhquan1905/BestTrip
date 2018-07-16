@@ -45,7 +45,7 @@ class SplashScreen : AppCompatActivity(),GetDataViewClientItf {
         Handler().postDelayed({
 
             mAuth= FirebaseAuth.getInstance()
-            var currentUser = mAuth!!.currentUser
+            val currentUser = mAuth!!.currentUser
             if (currentUser != null){
                 emailUser = currentUser.email.toString()
                 //getDataClient from Firebase

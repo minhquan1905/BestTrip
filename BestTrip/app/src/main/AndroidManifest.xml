@@ -29,8 +29,8 @@
         <activity android:name=".getsetdata.view.Home">
 
         </activity>
-        <activity android:name=".login.view.ListTaxi"></activity>
-        <activity android:name=".login.view.MainActivity"></activity>
+        <activity android:name=".login.view.ListTaxi" />
+        <activity android:name=".login.view.MainActivity" />
 
 
         <uses-library

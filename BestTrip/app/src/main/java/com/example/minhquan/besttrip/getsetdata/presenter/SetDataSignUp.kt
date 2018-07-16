@@ -4,7 +4,7 @@ import android.widget.EditText
 import com.example.minhquan.besttrip.model.firebasedata.User
 import com.google.firebase.database.FirebaseDatabase
 
-class SetDataSignUp() {
+class SetDataSignUp {
     fun createNewUserFireBase(edtEmail: EditText,edtFullName: EditText,edtPassWord: EditText,edtPhoneNumber: EditText){
         val database = FirebaseDatabase.getInstance().reference
 

@@ -74,7 +74,7 @@ class TaxiAdapter(internal var context: Context, var route: ResultRoute, var use
 
         override fun onClick(v: View) {
 
-            val detail = DetailRoute(route.routes!![0], company, tvPrice.text.toString())
+            val detail = DetailRoute(route.routes!![0], data[position], tvPrice.text.toString())
             val intent = Intent(context, DetailActivity::class.java)
             val bundle = Bundle()
             bundle.putParcelable("DetailRoute",detail)

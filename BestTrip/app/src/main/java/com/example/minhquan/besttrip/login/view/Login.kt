@@ -33,12 +33,12 @@ import kotlinx.android.synthetic.main.login_fragment.*
 class Login : Fragment(),ViewItf.LoginItf,GoogleApiClient.OnConnectionFailedListener, GetDataViewClientItf {
 
     private val TAG = "JSAGoogleSignIn"
-    val REQUEST_CODE_SIGN_IN = 1234
+    private val REQUEST_CODE_SIGN_IN = 1234
 
     private var mAuth: FirebaseAuth? = null
     private var mGoogleApiClient: GoogleApiClient? = null
     //emailUser use to filter User from Client
-    var emailUser : String = ""
+    private var emailUser : String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.login_fragment, container, false)

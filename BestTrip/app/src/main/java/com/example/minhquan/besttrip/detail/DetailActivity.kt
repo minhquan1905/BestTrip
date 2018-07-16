@@ -8,9 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.minhquan.besttrip.R
 import com.example.minhquan.besttrip.getsetdata.presenter.SetDataHistory
-import com.example.minhquan.besttrip.getsetdata.view.GetDataViewTaxiItf
 import com.example.minhquan.besttrip.model.DetailRoute
-import com.example.minhquan.besttrip.model.firebasedata.Taxi
 import com.example.minhquan.besttrip.model.firebasedata.User
 import kotlinx.android.synthetic.main.activity_detail.*
 import android.content.Intent
