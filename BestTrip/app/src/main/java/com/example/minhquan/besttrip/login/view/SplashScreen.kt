@@ -22,12 +22,6 @@ class SplashScreen : AppCompatActivity(),GetDataViewClientItf {
     private var mAuth: FirebaseAuth? = null
     var emailUser : String = ""
 
-//    override fun onAttachedToWindow() {
-//        super.onAttachedToWindow()
-//        val window = window
-//        window.setFormat(PixelFormat.RGBA_8888)
-//    }
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
